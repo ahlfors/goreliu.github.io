@@ -1,37 +1,33 @@
-## Welcome to GitHub Pages
+## 欢迎来到陌辞寒的主页
 
-You can use the [editor on GitHub](https://github.com/goreliu/goreliu.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+### GitHub
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[个人信息页](https://github.com/goreliu)
 
-### Markdown
+[wsl-terminal](https://goreliu.github.io/wsl-terminal/README.zh_CN.html)：用于 Windows Subsystem for Linux (WSL) 的终端模拟器。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+[zshguide](https://github.com/goreliu/zshguide)：Zsh 开发指南。
 
-```markdown
-Syntax highlighted code block
+[VimDesktop](https://github.com/goreliu/vimdesktop)：让所有 Windows 桌面程序拥有 Vim 操作风格的辅助工具。
 
-# Header 1
-## Header 2
-### Header 3
+[RunZ](https://github.com/goreliu/runz)：专业的快速启动工具。
 
-- Bulleted
-- List
+[dotfiles](https://github.com/goreliu/dotfiles)：Linux 家目录配置文件。
 
-1. Numbered
-2. List
+### 博客
 
-**Bold** and _Italic_ and `Code` text
+[简书](http://www.jianshu.com/u/114aeb6d3d81)
 
-[Link](url) and ![Image](src)
-```
+[segmentfault](https://segmentfault.com/blog/goreliu)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[掘金](https://juejin.im/user/59bb80c0f265da06484438f3)
 
-### Jekyll Themes
+[知乎](https://www.zhihu.com/people/osily/posts)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/goreliu/goreliu.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+[AHK 文章合集](http://www.jianshu.com/nb/4051534)
 
-### Support or Contact
+### 其他
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+微信：ly50247
+
+微博：[陌辞寒](http://weibo.com/ly50247)

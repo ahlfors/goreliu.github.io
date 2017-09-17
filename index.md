@@ -4,7 +4,7 @@
 
 [wsl-terminal](https://goreliu.github.io/wsl-terminal/README.zh_CN.html)：用于 Windows Subsystem for Linux (WSL) 的终端模拟器。
 
-[zshguide](https://github.com/goreliu/zshguide)：Zsh 开发指南。
+[zshguide](https://github.com/goreliu/zshguide/blob/master/00_Zsh-开发指南（目录）.md)：Zsh 开发指南。
 
 [VimDesktop](https://github.com/goreliu/vimdesktop)：让所有 Windows 桌面程序拥有 Vim 操作风格的辅助工具。
 

@@ -22,7 +22,7 @@
 
 [掘金](https://juejin.im/user/59bb80c0f265da06484438f3)
 
-[知乎](https://www.zhihu.com/people/osily/posts)
+[知乎](https://www.zhihu.com/people/goreliu/posts)
 
 [AHK 文章合集](http://www.jianshu.com/nb/4051534)
 

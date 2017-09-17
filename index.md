@@ -1,5 +1,3 @@
-## 欢迎来到陌辞寒的主页
-
 ### GitHub
 
 [个人信息页](https://github.com/goreliu)

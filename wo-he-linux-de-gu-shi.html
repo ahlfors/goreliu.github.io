@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
 
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/default.css" rel="stylesheet" />
     
     <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -63,7 +63,7 @@
                     <li>
                         <a href="/archives.html">
                             <span class="glyphicon glyphicon-th-list padding-small"></span>
-                            Recent Articles
+                            最近文章
                         </a>
                     </li>
                 
@@ -72,7 +72,7 @@
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
                         <i class="fa fa-folder-open padding-small"></i>
-                        Categories
+                        文章类别
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
@@ -131,7 +131,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <header class="page-header">
-                    <h1>
+                    <h2>
                         <a href="/wo-he-linux-de-gu-shi.html"
                            rel="bookmark"
                            title="Permalink to 我和 Linux 的故事">
@@ -150,7 +150,7 @@
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
-                    </h1>
+                    </h2>
                 </header>
             </div>
         </div>
@@ -525,9 +525,6 @@ dispatch-conf
 <p>这里提下我为什么坚守Xterm，而不要Urxvt和各种基于vte的终端模拟器。基本上我见过的都尝试过了，Urxvt的问题是字体方面，怎么调整都别扭，不是字体间距有问题，就是有些全角字符显示有问题，而对我来说，相比Xterm几乎没有什么优势，资源占用还更多。而基于vte的终端模拟器有一个共同的问题，就是在里边用Tmux时，下边的色块显示有问题，这个不大好形容，不影响功能，但看起来十分别扭，我多次试图解决都无功而返。而且vte本身的主要问题是能配置的东西太少，没记错的话背景颜色都没法改，比Xterm功能还有少很多。而基于vte的家伙一个比一个臃肿，那些功能都不是我想要的，有因为vte那个共性的问题，我最多尝试来其中某个一两天时间就又放弃了。另外一个值得一提的是mlterm，看起来很漂亮，配置也比较方便。但有一个致命的问题，一时想不起来了，好像是无法快捷地复制，要不就和中文有关，或者有个什么致命的bug，说数次尝试都发现问题犹在而无法使用。最后发现能用的只有Xterm。但Xterm也有几个问题，除了之前说的不能实时更改字体大小，还有配置文件比较麻烦，经常需要上网各种搜，然后改一下重启一下Xterm（有时为了调整字体和字体间距需要改好多次效果才可以接受），不能配置成右键用来粘贴（印象中是这样，可能记错了），复制好像也存在问题（后来好像在配置文件里配的某个快捷键是复制，或者选择直接复制，想不起来了），命令输出内容过多时需要滚动好久等等。而这些问题mintty都没有。</p>
 <p>关于和Windows的其他事情需要以后再单独写了。</p>
                 </div>
-                <footer class="text-right">
-                    <p>- goreliu</p>
-                </footer>
             </div>
         </div>
     </article>

@@ -9,12 +9,12 @@
         <meta name="description" content="WSL 从最初功能不全 bug 遍地都是，到现在除了少数几个比较顽固的 bug 外，基本足以正常使用了。但自带终端模拟器的体验依然非常糟糕，而且在可以预期的未来都不会有太大的长进了。我是从去年 8 月开始开发 wsl-terminal（中文页面）的，期间因为想不到可以添加什么功能而搁置了比较长时间。最近心血来潮，添加了很多实用功能，用户体验也会上升很多。 希望有在使用的朋友可以多反馈下意见建议，如果之前没有尝试过，也可以体验一下，软件是一个 1.6 MB 的压缩包，解压后即可使用，不会往系统中写入任何东西（如果想添加到开始菜单或者右键菜单，可以使用 tools 中的工具）。 介绍 用于 Windows Subsystem for Linux (WSL) 的终端模拟器，基于 mintty 和 wslbridge。 截图 查看更多截图。 用法 …" />
 
 
-    <title>使用 wsl terminal 更好地体验 Win 10 WSL 终端环境 - 陌辞寒</title>
+    <title>使用 wsl-terminal 更好地体验 Win 10 WSL 终端环境 - 陌辞寒</title>
 
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
 
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/default.css" rel="stylesheet" />
     
     <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -63,7 +63,7 @@
                     <li>
                         <a href="/archives.html">
                             <span class="glyphicon glyphicon-th-list padding-small"></span>
-                            Recent Articles
+                            最近文章
                         </a>
                     </li>
                 
@@ -72,7 +72,7 @@
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
                         <i class="fa fa-folder-open padding-small"></i>
-                        Categories
+                        文章类别
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
@@ -131,11 +131,11 @@
         <div class="row">
             <div class="col-lg-9">
                 <header class="page-header">
-                    <h1>
+                    <h2>
                         <a href="/shi-yong-wsl-terminal-geng-hao-di-ti-yan-win-10-wsl-zhong-duan-huan-jing.html"
                            rel="bookmark"
-                           title="Permalink to 使用 wsl terminal 更好地体验 Win 10 WSL 终端环境">
-                            使用 wsl terminal 更好地体验 Win 10 WSL 终端环境
+                           title="Permalink to 使用 wsl-terminal 更好地体验 Win 10 WSL 终端环境">
+                            使用 wsl-terminal 更好地体验 Win 10 WSL 终端环境
                         </a>
                         <small>
 <div class="post-info">
@@ -150,7 +150,7 @@
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
-                    </h1>
+                    </h2>
                 </header>
             </div>
         </div>
@@ -354,9 +354,6 @@ remove the ; before distro_guid to use the distro.
 <h3>许可</h3>
 <p>MIT</p>
                 </div>
-                <footer class="text-right">
-                    <p>- goreliu</p>
-                </footer>
             </div>
         </div>
     </article>

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
 
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/default.css" rel="stylesheet" />
     
     <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -63,7 +63,7 @@
                     <li>
                         <a href="/archives.html">
                             <span class="glyphicon glyphicon-th-list padding-small"></span>
-                            Recent Articles
+                            最近文章
                         </a>
                     </li>
                 
@@ -72,7 +72,7 @@
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
                         <i class="fa fa-folder-open padding-small"></i>
-                        Categories
+                        文章类别
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
@@ -131,7 +131,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <header class="page-header">
-                    <h1>
+                    <h2>
                         <a href="/ji-chu-ahk-zhong-he-deng-bi-jiao-yun-suan-fu-de-yong-fa.html"
                            rel="bookmark"
                            title="Permalink to [基础] AHK 中 = 和 == 等比较运算符的用法">
@@ -150,7 +150,7 @@
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
-                    </h1>
+                    </h2>
                 </header>
             </div>
         </div>
@@ -261,9 +261,6 @@ else
 <h2>注意事项</h2>
 <p>所以，在比较字符串时还是需要留神的。因为通常情况我们无需设置 StringCaseSense，不等号在比较字符串的时候是不区分大小写的。对应地，我们也应该用 = 来比较字符串，以免发生之前描述的问题。如果因为某些情况，我们需要修改之前代码的 StringCaseSense，一定要仔细审视每一处用 = 或者 == 比较字符串的代码，看是否存在问题。必要的话，需要将 = 与 == 互换。</p>
                 </div>
-                <footer class="text-right">
-                    <p>- goreliu</p>
-                </footer>
             </div>
         </div>
     </article>

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
 
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/default.css" rel="stylesheet" />
     
     <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -63,7 +63,7 @@
                     <li>
                         <a href="/archives.html">
                             <span class="glyphicon glyphicon-th-list padding-small"></span>
-                            Recent Articles
+                            最近文章
                         </a>
                     </li>
                 
@@ -72,7 +72,7 @@
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
                         <i class="fa fa-folder-open padding-small"></i>
-                        Categories
+                        文章类别
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
@@ -129,19 +129,7 @@
 <section id="content" class="body">
     <div class="row">
         <div class="col-lg-9">
-            <div class="jumbotron">  
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>陌辞寒</h1>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-9">
-            <h2>Recent Articles:</h2>
+            <p></p>
         </div>
     </div>
 </section>
@@ -149,7 +137,7 @@
     <div class="col-lg-9">
             <article>
                 <h2>
-                    <a href="/shi-yong-wsl-terminal-geng-hao-di-ti-yan-win-10-wsl-zhong-duan-huan-jing.html">使用 wsl terminal 更好地体验 Win 10 WSL 终端环境</a>
+                    <a href="/shi-yong-wsl-terminal-geng-hao-di-ti-yan-win-10-wsl-zhong-duan-huan-jing.html">使用 wsl-terminal 更好地体验 Win 10 WSL 终端环境</a>
 <div class="post-info">
     <div class="publish-info-block">
         <small>
@@ -267,8 +255,8 @@
                 </div>
             </article>
         <div class="btn-more text-right">
-            <a class="btn btn-default btn-xs twitchy-background" href="/archives.html">
-                View all Articles ...
+            <a class="btn btn-default btn-xs" href="/archives.html">
+                查看所有文章 ...
             </a>
         </div>
     </div>
@@ -294,22 +282,5 @@
     <script src="/theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="/theme/js/pelican_twitchy.min.js"></script>
-<script>
-    function FadeInOnScroll(ObjectList){
-        ObjectList.each(function(i) {
-            var bottom_of_object = $(this).position().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-
-            if( bottom_of_window > bottom_of_object ){
-                $(this).fadeTo(750,1);
-            }
-        });
-    }
-    articles = $("article").fadeTo(0, 0.05);
-    FadeInOnScroll(articles)
-    $(window).scroll(function() {
-        FadeInOnScroll(articles)
-    });
-</script>
 </body>
 </html>

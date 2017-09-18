@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="关联数组就像字典一样，我们可以通过一个键访问它对应的值。比如我可以往一本空字典里添加两个单词，a：一个，good：好，然后我就可以通过 a 访问它对应的解释“一个”，通过 good 访问它对应的解释“好”。普通数组是关联数组的一个子集，它的键是从 1 开始的连续数字。 创建 创建一个关联数组比较简单，AHK 中的数组实际上使用对象（Object()，也可以用 Array()，二者是一样的）实现的，所以创建数组就是创建一个空对象。 array := Object() Loop, 10 { ; 这里键和值都是 A_Index array[A_Index] := A_Index ; 如果是创建普通数组，也可以直接用 Push 函数 ; array.Push(A_Index) } 如果事先已经知道数组的所有元素，也可以直接这样创建： ; 不指定键的时候，即创建普通数组，键是 …" />
+
+
+    <title>[基础] AHK 中关联数组、列表、栈和队列的用法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-guan-lian-shu-zu-lie-biao-zhan-he-dui-lie-de-yong-fa.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中关联数组、列表、栈和队列的用法">
+                            [基础] AHK 中关联数组、列表、栈和队列的用法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>关联数组就像字典一样，我们可以通过一个键访问它对应的值。比如我可以往一本空字典里添加两个单词，a：一个，good：好，然后我就可以通过 a 访问它对应的解释“一个”，通过 good 访问它对应的解释“好”。普通数组是关联数组的一个子集，它的键是从 1 开始的连续数字。</p>
+<h2>创建</h2>
+<p>创建一个关联数组比较简单，AHK 中的数组实际上使用对象（Object()，也可以用 Array()，二者是一样的）实现的，所以创建数组就是创建一个空对象。</p>
+<div class="highlight"><pre><span></span>array := Object()
+
+Loop, 10
+{
+    ; 这里键和值都是 A_Index
+    array[A_Index] := A_Index
+    ; 如果是创建普通数组，也可以直接用 Push 函数
+    ; array.Push(A_Index)
+}
+</pre></div>
+
+
+<p>如果事先已经知道数组的所有元素，也可以直接这样创建：</p>
+<div class="highlight"><pre><span></span>; 不指定键的时候，即创建普通数组，键是 1 2 3
+array1 := [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+array2 := { &quot;a&quot; : &quot;x&quot;, &quot;b&quot; : &quot;y&quot;}
+</pre></div>
+
+
+<h2>访问</h2>
+<p>创建完数组，就可以访问了。</p>
+<div class="highlight"><pre><span></span>; 访问数组中键是 5 的值
+MsgBox, % array[5]
+
+; 访问数组中键是 &quot;abc&quot; 的值
+MsgBox, % array[&quot;abc&quot;]
+
+; 修改 &quot;abc&quot; 键对应的值
+array[&quot;abc&quot;] := &quot;def&quot;
+</pre></div>
+
+
+<p>也可以遍历。</p>
+<div class="highlight"><pre><span></span>for index, element in array
+{
+    MsgBox, % index &quot; &quot; element
+}
+</pre></div>
+
+
+<h2>更多操作</h2>
+<p>下边列出数组操作相关函数，更多细节请参考帮助文档。</p>
+<p>Push 函数用于在数组的末尾添加元素。</p>
+<div class="highlight"><pre><span></span>Object.Push([ Value, Value2, ..., ValueN ])
+</pre></div>
+
+
+<p>Pop 函数用于取出数组末尾的元素。</p>
+<div class="highlight"><pre><span></span>Value := Object.Pop()
+</pre></div>
+
+
+<p>InsertAt 函数用于在数组的指定位置添加元素。</p>
+<div class="highlight"><pre><span></span>Object.InsertAt(Pos, Value1 [, Value2, ... ValueN])
+</pre></div>
+
+
+<p>RemoveAt 函数用于删除数组指定位置的元素。</p>
+<div class="highlight"><pre><span></span>Object.RemoveAt(Pos [, Length])
+</pre></div>
+
+
+<p>Delete 函数用于删除指定键对应的元素。和 RemoveAt 函数的区别是，Delete 函数只是将键对应的值清空，而不会将键也删除。</p>
+<div class="highlight"><pre><span></span>Object.Delete(Key)
+Object.Delete(FirstKey, LastKey)
+</pre></div>
+
+
+<p>Length 函数用来获取普通数组的长度。</p>
+<div class="highlight"><pre><span></span>Length := Object.Length()
+</pre></div>
+
+
+<p>HasKey 函数用来判断数组中是否有对应键。</p>
+<div class="highlight"><pre><span></span>Object.HasKey(Key)
+</pre></div>
+
+
+<p>MinIndex 函数和 MaxIndex 函数用来返回最小的和最大的键。</p>
+<div class="highlight"><pre><span></span>MinIndex := Object.MinIndex()
+MaxIndex := Object.MaxIndex()
+</pre></div>
+
+
+<p>Clone 函数用来返回数组的一个浅拷贝。</p>
+<div class="highlight"><pre><span></span>Clone := Object.Clone()
+</pre></div>
+
+
+<p>GetCapacity 函数和 SetCapacity 函数用来获取或者调整数组或其中元素占用的内存空间。</p>
+<div class="highlight"><pre><span></span>MaxItems := Object.GetCapacity()
+ByteSize := Object.GetCapacity(Key)
+
+Object.SetCapacity(MaxItems)
+Object.SetCapacity(Key, ByteSize)
+</pre></div>
+
+
+<p>GetAddress 函数用来获取键对应元素的地址。</p>
+<div class="highlight"><pre><span></span>Ptr := Object.GetAddress(Key)
+</pre></div>
+
+
+<p>ObjRawSet 函数用来存储或覆盖对象中的一组键值对。</p>
+<div class="highlight"><pre><span></span>ObjRawSet(Object, Key, Value)
+</pre></div>
+
+
+<p>_NewEnum 函数会返回一个新的计数器，用来枚举数组中的键值对。</p>
+<div class="highlight"><pre><span></span>Enum := Object._NewEnum()
+</pre></div>
+
+
+<h2>列表、栈、队列</h2>
+<p>通过以上的函数我们发现使用对象可以实现列表、栈和队列。</p>
+<h3>列表</h3>
+<p>列表可以使用Push、Pop、InsertAt、RemoveAt、Length、_NewEnum 等函数实现。</p>
+<p>list.InsertAt 函数和 list.Push 函数用于往列表添加元素，list.RemoveAt 函数和 list.Pop 函数用于从列表取出元素，list.Length() 用于获取列表大小，可以自行维护一个整数作为数组访问的当前位置，或者用 list._NewEnum 函数获取计数器来访问。</p>
+<h3>栈</h3>
+<p>栈可以用 Push、Pop、Length 函数实现。</p>
+<p>stack.Push(element) 用于往栈里添加元素，stack.Pop() 用于从栈里取出元素，stack.Length() 用于获取栈的大小。</p>
+<h3>队列</h3>
+<p>队列可以用 Push、RemoveAt、Length 函数实现。</p>
+<p>queue.Push(element) 用于往队列尾部添加元素，queue.RemoveAt(1) 用于从队列头部取出元素，queue.Length() 用于获取队列大小。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

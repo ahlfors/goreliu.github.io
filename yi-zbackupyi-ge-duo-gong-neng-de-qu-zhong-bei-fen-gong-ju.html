@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="zbackup是一个基于rsync思想的全局去重数据备份工具。给它传入一个大的tar文件后，它会仅存储一次该文件的重复部分，然后对结果进行压缩，并根据参数确定是否对其加密。传入另一个tar文件后，它会从之前的已备份文件中复用重复数据。只有新的改动会被保存，并且只要文件差异不是很大，需要的存储空间非常少。无论何时，之前的已备份文件都可以被完整地读出来。 zBackup特性 使用并行的LZMA或者LZO压缩算法压缩已备份数据 使用内置的AES加密算法加密已备份数据 可以删除旧的已备份数据 使用一个64位滚动哈希，保持软碰撞数量为0 备份库由不可更改的文件组成，只有库中不存在的文件才能修改 使用C++语言编写，并且只有适量的依赖库 可以在生产环境安全使用 可以在不同备份库中交换数据而无需重新压缩 在ubuntu中安装zBackup 打开终端并运行如下命令： sudo apt-get install zbackup 使用zBackup zbackup init命令会初始化一个备份库，用来存放待备份的数据。 zbackup init [--non-encrypted] [--password-file ~/.my_backup_password ] /my/backup/repo zbackup backup命令备份一个由tar c命令创建的tar文件到刚才使用 …" />
+
+
+    <title>[译] zBackup：一个多功能的去重备份工具 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/yi-zbackupyi-ge-duo-gong-neng-de-qu-zhong-bei-fen-gong-ju.html"
+                           rel="bookmark"
+                           title="Permalink to [译] zBackup：一个多功能的去重备份工具">
+                            [译] zBackup：一个多功能的去重备份工具
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>zbackup是一个基于rsync思想的全局去重数据备份工具。给它传入一个大的tar文件后，它会仅存储一次该文件的重复部分，然后对结果进行压缩，并根据参数确定是否对其加密。传入另一个tar文件后，它会从之前的已备份文件中复用重复数据。只有新的改动会被保存，并且只要文件差异不是很大，需要的存储空间非常少。无论何时，之前的已备份文件都可以被完整地读出来。</p>
+<h3>zBackup特性</h3>
+<ul>
+<li>使用并行的LZMA或者LZO压缩算法压缩已备份数据</li>
+<li>使用内置的AES加密算法加密已备份数据</li>
+<li>可以删除旧的已备份数据</li>
+<li>使用一个64位滚动哈希，保持软碰撞数量为0</li>
+<li>备份库由不可更改的文件组成，只有库中不存在的文件才能修改</li>
+<li>使用C++语言编写，并且只有适量的依赖库</li>
+<li>可以在生产环境安全使用</li>
+<li>可以在不同备份库中交换数据而无需重新压缩</li>
+</ul>
+<h3>在ubuntu中安装zBackup</h3>
+<p>打开终端并运行如下命令：</p>
+<div class="highlight"><pre><span></span>sudo apt-get install zbackup
+</pre></div>
+
+
+<h3>使用zBackup</h3>
+<p><code>zbackup init</code>命令会初始化一个备份库，用来存放待备份的数据。</p>
+<div class="highlight"><pre><span></span>zbackup init [--non-encrypted] [--password-file ~/.my_backup_password ] /my/backup/repo
+</pre></div>
+
+
+<p><code>zbackup backup</code>命令备份一个由<code>tar c</code>命令创建的tar文件到刚才使用<code>zbackup init</code>初始化的备份库。（LCTT 译注：实际使用时类似这样，tar c files | zbackup ...）</p>
+<div class="highlight"><pre><span></span>zbackup [--password-file ~/.my_backup_password ] [--threads number_of_threads ] backup /my/backup/repo/backups/backup-`date ‘+%Y-%m-%d&#39;`
+</pre></div>
+
+
+<p><code>zbackup restore</code>命令从备份库中恢复一个已备份文件到tar文件中。</p>
+<div class="highlight"><pre><span></span>zbackup [--password-file ~/.my_backup_password ] [--cache-size cache_size_in_mb ] restore /my/backup/repo/backups/backup-`date ‘+%Y-%m-%d&#39;` &gt; /my/precious/backup-restored.tar
+</pre></div>
+
+
+<h3>可用选项</h3>
+<ul>
+<li>-non-encrypted -- 不加密备份库。</li>
+<li>--password-file ~/.my_backup_password -- 使用位于~/.my_backup_password的口令文件来加密备份库和待备份文件，以及解密已备份文件。</li>
+<li>--threads number_of_threads -- 限制并行LZMA压缩的线程数为 number_of_threads。建议在32位的系统平台使用。</li>
+<li>--cache-size cache_size_in_mb -- 使用cache_size_in_mb中的缓存大小来加速恢复文件的过程。</li>
+</ul>
+<h3>上述命令中 zBackup 相关文件</h3>
+<ul>
+<li>~/.my_backup_password 用来加密备份库和待备份文件，以及解密已备份文件。更多细节见zbackup。</li>
+<li>/my/backup/repo 存放备份库的目录。</li>
+<li>/my/precious/restored-tar 用来恢复已备份文件的tar文件。</li>
+<li>/my/backup/repo/backups/backup-<code>date ‘+%Y-%m-%d'</code> 指定的之前已备份文件的文件名。</li>
+</ul>
+<hr>
+<p>via: http://www.ubuntugeek.com/zbackup-a-versatile-deduplicating-backup-tool.html</p>
+<p>作者：<a href="http://www.ubuntugeek.com/author/ubuntufix">ruchi</a>
+译者：<a href="https://github.com/goreliu">goreliu</a>
+校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创翻译，<a href="http://linux.cn/">Linux中国</a> 荣誉推出</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="谈到全局变量、局部变量和静态变量，就涉及到两个概念：作用域和生存期。 这是两个完全不同的概念，虽然很多时候相互关联。作用域是作用在空间上的，比如一个变量在代码的哪些行能访问，哪些行不能访问。而生存期是作用在时间上的，比如一个变量的值在函数返回后是否失效。 全局变量 全局变量比较好理解，如果一个变量是全局变量，那么程序中的所有代码都可以访问到这个变量（除非存在同名的局部变量或者静态变量）。全局变量用 global 定义。 看一个例子。 a := 1 global b := 2 c := 3 fun() fun() { ; a 不是全局变量，访问不了，弹出空字符串 MsgBox, % a ; b 是全局变量，弹出 2 MsgBox, % b ; 在函数里也可以将 c 变成全局变量 global c ; 弹出 3 MsgBox, % c …" />
+
+
+    <title>[基础] AHK 中全局变量、局部变量和静态变量的用法和区别 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-quan-ju-bian-liang-ju-bu-bian-liang-he-jing-tai-bian-liang-de-yong-fa-he-qu-bie.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中全局变量、局部变量和静态变量的用法和区别">
+                            [基础] AHK 中全局变量、局部变量和静态变量的用法和区别
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>谈到全局变量、局部变量和静态变量，就涉及到两个概念：作用域和生存期。</p>
+<p>这是两个完全不同的概念，虽然很多时候相互关联。作用域是作用在空间上的，比如一个变量在代码的哪些行能访问，哪些行不能访问。而生存期是作用在时间上的，比如一个变量的值在函数返回后是否失效。</p>
+<h2>全局变量</h2>
+<p>全局变量比较好理解，如果一个变量是全局变量，那么程序中的所有代码都可以访问到这个变量（除非存在同名的局部变量或者静态变量）。全局变量用 global 定义。</p>
+<p>看一个例子。</p>
+<div class="highlight"><pre><span></span>a := 1
+global b := 2
+c := 3
+
+fun()
+
+fun()
+{
+    ; a 不是全局变量，访问不了，弹出空字符串
+    MsgBox, % a
+
+    ; b 是全局变量，弹出 2
+    MsgBox, % b
+
+    ; 在函数里也可以将 c 变成全局变量
+    global c
+    ; 弹出 3
+    MsgBox, % c
+}
+</pre></div>
+
+
+<p>注意代码里的 a 并不是全局变量，虽然它的作用域要比函数里的局部变量要大，在所有文件的函数外都可以访问，但在函数内它是不能被访问到的，这算是一个特例。</p>
+<h2>局部变量</h2>
+<p>在函数里使用的变量通常是局部变量。</p>
+<div class="highlight"><pre><span></span>fun()
+; a 并不是全局变量，弹出空字符串
+MsgBox, % a
+; b 是全局变量，弹出 2
+MsgBox, % b
+
+fun()
+{
+    a := 1
+    global b := 2
+}
+</pre></div>
+
+
+<p>注意这里 b 是在函数里定义的全局变量，但不管是在什么地方定义的，在其他地方都可以访问到。</p>
+<h2>静态变量</h2>
+<p>全局变量和局部变量的作用域和生存期都不一样。全局变量的作用域和生存期都是全局的，局部变量的作用域是在函数内部，生存期是从函数开始执行到函数返回。</p>
+<p>但还有一种比较特别的变量是静态变量。</p>
+<div class="highlight"><pre><span></span>; 弹出 1 1
+fun()
+; 弹出 1 2
+fun()
+
+fun()
+{
+    a := 1
+    static b := 1
+    MsgBox, % a &quot; &quot; b
+    a++
+    b++
+}
+</pre></div>
+
+
+<p>a 就是普通的局部变量，因为每次执行 a 都会被初始化为 1，所以两次运行 fun 函数时 a 的值都是 1。但 b 是一个静态变量（使用 static 定义）。静态变量的作用域和局部变量一样，只能在函数内访问。但生存期和全局变量一样，也就是说一个静态变量定义后，它的值会一直有效，即使函数已经返回了。所有第二次运行 fun 函数后，b 的值已经是 2 了。</p>
+<h2>使用场景</h2>
+<p>那么什么分别在什么情况下使用三者呢？</p>
+<p>没有特殊需求的场景，都应该使用局部变量，这也是默认的情况。</p>
+<p>如果一个变量是需要全局有效的，那么使用全局变量。但全局变量会导致代码的耦合度比较高，不方便维护，所以尽量少用。有些看似需要使用全局变量的场景，其实使用函数的参数传递更合理。</p>
+<p>如果某个局部变量需要只初始化一次（一般情况是因为初始化有开销，这是主要的场景），或者需要保留上次运行的结果（这会导致代码容易滋生 bug，并且难于测试，尽量少用），那么需要将这个局部变量修改成静态变量。</p>
+<p>除了全局变量、局部变量、静态变量，还有在类中的变量，这个我会在类中单独讲。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="树莓派被广为诟病的一个地方就是性能低（这里以树莓派 3b 为准，更早产品的性能确实不能满足很多场景的需求），性能包括 CPU、GPU、网络传输、USB 传输、SD 卡读写等诸多方面。很多人希望有一款高性能的树莓派，价格贵也没关系。我开始时也是这么想的，到处找和树莓派差不多但性能更好的设备，但找来找去没发现更满意的，有的接口太少，有的软件环境太糟糕，有的资料太少没有成熟的社区，各有各的问题。但我慢慢发现自己陷入到一个性能误区里。我需要更高的性能来做什么呢？如果不把需求明确了，那就很难找到能让自己满意的设备。 于是我开始想树莓派有哪些优势，适合使用者哪些场景。然后我得出了一个结论，如果认为树莓派性能太差，那绝大多数情况都是选型时出了明显的问题。 那些树莓派不适合的场景以及更优选择： 1、用来当路由器 不适原因：CPU/GPU、接口、软件平台资源浪费，网络性能不足。 更优选择：同价位（或者更便宜）的路由器。 2、NAS 不适原因：接口、软件平台资源浪费，网络性能 …" />
+
+
+    <title>我关于树莓派性能低的看法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/wo-guan-yu-shu-mei-pai-xing-neng-di-de-kan-fa.html"
+                           rel="bookmark"
+                           title="Permalink to 我关于树莓派性能低的看法">
+                            我关于树莓派性能低的看法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>树莓派被广为诟病的一个地方就是性能低（这里以树莓派 3b 为准，更早产品的性能确实不能满足很多场景的需求），性能包括 CPU、GPU、网络传输、USB 传输、SD 卡读写等诸多方面。很多人希望有一款高性能的树莓派，价格贵也没关系。我开始时也是这么想的，到处找和树莓派差不多但性能更好的设备，但找来找去没发现更满意的，有的接口太少，有的软件环境太糟糕，有的资料太少没有成熟的社区，各有各的问题。但我慢慢发现自己陷入到一个性能误区里。我需要更高的性能来做什么呢？如果不把需求明确了，那就很难找到能让自己满意的设备。</p>
+<p>于是我开始想树莓派有哪些优势，适合使用者哪些场景。然后我得出了一个结论，如果认为树莓派性能太差，那绝大多数情况都是选型时出了明显的问题。</p>
+<p>那些树莓派不适合的场景以及更优选择：</p>
+<p>1、用来当路由器</p>
+<p>不适原因：CPU/GPU、接口、软件平台资源浪费，网络性能不足。
+更优选择：同价位（或者更便宜）的路由器。</p>
+<p>2、NAS</p>
+<p>不适原因：接口、软件平台资源浪费，网络性能、USB 传输性能不足，并且预算太低。
+更优选择：专用 NAS、x86 平台的台式机（可以选择二手的性价比更高，可以选择小机箱更省空间）、中高端家用路由器（如果要求不高）。</p>
+<p>3、接电视（或者显示器）看视频</p>
+<p>不适原因：接口、软件平台资源浪费，网络性能、GPU 性能、USB 传输性能不足。
+更优选择：同价位的安卓盒子、稍贵的电脑棒、小机箱主机（如果要求较高）。</p>
+<p>4、学习 Linux</p>
+<p>不适原因：整体浪费，并且太麻烦。
+更优选择：在电脑里运行 Linux 虚拟机，或者安装 Linux 实体机。</p>
+<p>5、跑消耗性能的软件</p>
+<p>不适原因：接口、软件平台资源浪费，各种性能不足，对口软件资源不足，太麻烦，预算太低。
+更优选择：根据自己的应用场景，选择对应价位的 x86 台式机（可以选择二手的节省预算，可以选择小机箱节省空间）。</p>
+<p>6、接外设后替代电脑或者平板</p>
+<p>不适原因：各种性能不足，接口浪费，太麻烦，预算太低。
+更优选择：根据实际情况选择对应价位的笔记本、台式机、平板电脑等。</p>
+<p>7、作为游戏机（玩复古的模拟器游戏除外）</p>
+<p>不适原因：游戏少，软件平台资源浪费，各种性能不足，接口浪费，预算太低。
+更优选择：根据实际情况选择对应价位的游戏机或者台式机。</p>
+<p>8、依赖树莓派的接口或者平台，但同时需要跑消耗性能的软件</p>
+<p>不适原因：各种性能不足，预算太低。
+更优选择：树莓派 + 对应价位的 x86 台式机（可以选择二手的节省预算，可以选择小机箱节省空间）。树莓派用来完成硬件操控、数据收集、数据简单处理、将数据通过网络传输给台式机。需要消耗性能的软件在台式机运行。</p>
+<p>9、看起来树莓派可以满足需求，但性能还差一些</p>
+<p>不适原因：性能不足，预算太低。
+更优选择：可以同 8。也可以选择更贵的类似树莓派的的设备（比如微软的 UP board 系列），但平台生态环境并不是和树莓派一致（虽然硬件接口基本兼容），并且性价比不高（拿 UP board 来说，它的处理器是 Atom Z8350，价格要 1000 出头。但这个价位的 Z8350 电脑棒只有 500 多，电脑棒 + 树莓派 才 700 多，要比 UP board 性价比更高。而且如果配合使用，并没必要使用性能并不高的 Z8350），需要根据实际情况选择。</p>
+<p>10、用于组成批量出售的商业设备产品</p>
+<p>不适原因：成本太高，芯片不能单独购买，硬件资料不够开放。
+更优选择：根据实际情况选择其他可以单独购买、有足够资料的硬件。</p>
+<p>总结起来分两种情况：</p>
+<p>1、不需要树莓派独有的功能，那么不需要考虑使用树莓派。
+2、需要树莓派独有的功能，但性能太低，可以考虑树莓派加其他设备配合使用。</p>
+<p>有人可能会说，用一台设备解决所有需求，要比用两台设备更节省预算，因为资源利用率更高。但实际情况是恰好相反的。如果你只有一个需求，可能很容易找到一个 150 元的设备可以满足。如果你有另一个需求，也可能很容易找到另一个 150 元的设备可以满足。但如果你想要找到一台设备同时满足这两个需求，那可能至少要花 500 元。如果你又有第三个需求，同样地，单独满足这个需求的设备可能只需要 150 元，但同时满足这三个需求的设备，可能至少需要 1000。如果你有第四个需求呢？那么很可能你没办法找到同时满足那四个需求的设备了，因为这些需求很可能是互斥的（比如性能高和功耗低），花多少钱也没处买。</p>
+<p>所以把需求拆开单独找可以满足的设备，然后配合使用，往往可以节省预算。</p>
+<p>那么树莓派适用怎样的场景呢？</p>
+<p>1、作为一个低能耗的 Linux 家用服务器，用于运行硬件性能可以满足的软件，提供各种服务（比如网络相关、文件相关、视频音频相关）。</p>
+<p>2、连接硬件用来做数据采集、监控、分析、发布等事情。</p>
+<p>3、作为类似小车、飞行器、机器人、智能家居等智能设备的控制中心。</p>
+<p>4、作为一个电脑的轻量级替代物，用于一些简单的场景，或者用来作软件开发启蒙，适合预算不足以买电脑的用户（主要是孩子）。这个是树莓派的最初目的。</p>
+<p>5、用于大中小学的教育。</p>
+<p>6、用于搭建原型产品。</p>
+<p>7、单纯地用来玩（折腾）而不是使用。</p>
+<p>可以看到，在这些场景中，树莓派的性能完全不成问题。不把全部需求集中在一个设备上，选择的范围就很广了。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

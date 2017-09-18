@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="上一篇文章我们了解到了 = 和 := 的区别，也了解了怎样对变量赋值。除了赋值，我们还经常需要比较两个变量的值是否相等，这就需要比较运算符了。 一翻手册，头疼的事情又来了。其他语言要么用 = 比较，要么用 == 比较，只是习惯的问题。而 AHK 用 = 和 == 都可以比较，而且二者居然还有区别。不过还好区别不是那么大，也并不难理解。 大小写问题 这里先提下大小写问题，这与 = 和 == 的区别密切相关。AHK 的代码是不区分大小写的，也就是说，在通常情况，将一份不涉及外部交互（如创建目录、写文件、和其他程序交互等）的 AHK 代码中的小写字母全部转换成大写字母，是不影响功能的。所有的关键字、变量名，都是不区分大小写的。但有一些特例，用 == 比较字符串是区分大小写的，以及后边会提到的 StringCaseSense 命令。 = 和 == 的区别 …" />
+
+
+    <title>[基础] AHK 中 = 和 == 等比较运算符的用法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-he-deng-bi-jiao-yun-suan-fu-de-yong-fa.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中 = 和 == 等比较运算符的用法">
+                            [基础] AHK 中 = 和 == 等比较运算符的用法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>上一篇文章我们了解到了 = 和 := 的区别，也了解了怎样对变量赋值。除了赋值，我们还经常需要比较两个变量的值是否相等，这就需要比较运算符了。</p>
+<p>一翻手册，头疼的事情又来了。其他语言要么用 = 比较，要么用 == 比较，只是习惯的问题。而 AHK 用 = 和 == 都可以比较，而且二者居然还有区别。不过还好区别不是那么大，也并不难理解。</p>
+<h2>大小写问题</h2>
+<p>这里先提下大小写问题，这与 = 和 == 的区别密切相关。AHK 的代码是不区分大小写的，也就是说，在通常情况，将一份不涉及外部交互（如创建目录、写文件、和其他程序交互等）的 AHK 代码中的小写字母全部转换成大写字母，是不影响功能的。所有的关键字、变量名，都是不区分大小写的。但有一些特例，用 == 比较字符串是区分大小写的，以及后边会提到的 StringCaseSense 命令。</p>
+<h2>= 和 == 的区别</h2>
+<p>用 = 比较字符串是不区分大小写的，而用 == 比较字符串是区分大小写的。</p>
+<div class="highlight"><pre><span></span>a := &quot;abc&quot;
+b := &quot;ABC&quot;
+
+if (a = b)
+{
+    ; 条件成立
+}
+
+if (a == b)
+{
+    ; 条件不成立
+}
+</pre></div>
+
+
+<h2>!= 和 &lt;&gt; 的用法</h2>
+<p>如果只考虑 = 和 == 的用法，并没有什么需要注意的，一个不区分大小写，一个区分大小写，根据实际情况选择即可。但有等号，自然就有不等号，考虑到不等号，问题就复杂化了。</p>
+<p>AHK 中的不等号也有两种，!= 和 &lt;&gt;，好在二者是完全相同的，可以根据自己的习惯来使用。但在处理大小写问题上，不等号和等号有着很大的区别。</p>
+<p>我们需要先了解一个命令，StringCaseSense：</p>
+<div class="highlight"><pre><span></span>StringCaseSense, On|Off|Locale
+</pre></div>
+
+
+<p>StringCaseSense 用于设置在字符串处理时是否区分大小写。如果设置了 On，就是区分；如果设置了 Off，就是不区分。先不用关注 Locale 参数。默认是 Off。</p>
+<p>注意这个命令不影响 = 和 == 的功能。也就是说即使设置了 StringCaseSense, On，用 = 比较字符串还是不区分大小写的。但影响 != 和 &lt;&gt; 的结果：</p>
+<div class="highlight"><pre><span></span>a := &quot;abc&quot;
+b := &quot;ABC&quot;
+
+StringCaseSense, On
+if (a != b)
+{
+    ; 条件成立
+}
+
+StringCaseSense, Off
+if (a != b)
+{
+    ; 条件不成立
+}
+</pre></div>
+
+
+<p>这个也并不难理解，因为通常情况我们无需设置 StringCaseSense，比较的结果都是不区分大小写的。</p>
+<h2>=、==、!=、&lt;&gt; 一起使用</h2>
+<p>既然我们已经分别了解了 =、==、!= 和 &lt;&gt; 的区别，就可以一起使用了。但这里就又一些新的事情需要注意了。</p>
+<p>默认情况，也就是 StringCaseSense, Off 的情况。= 和 != 是对应的，也就是说：</p>
+<div class="highlight"><pre><span></span>if (a = b)
+{
+}
+</pre></div>
+
+
+<p>和</p>
+<div class="highlight"><pre><span></span>; ! 是逻辑非操作，和很多其他语言一样。
+if (!(a != b))
+{
+}
+</pre></div>
+
+
+<p>是一样的。但 StringCaseSense, On 的情况，== 和 != 是对应的。</p>
+<p>也就是说，如果我们在 StringCaseSense, Off 的情况，将 == 和 != 在一起使用，可能会出问题。同理，在 StringCaseSense, On 的情况，将 = 和 != 在一起使用，也可能会出问题。会出什么样的问题呢，举一个例子：</p>
+<div class="highlight"><pre><span></span>StringCaseSense, Off
+
+a := &quot;abc&quot;
+b := &quot;ABC&quot;
+
+; 片段一
+if (a == b)
+{
+    ; 做 a
+    ; 条件不成立
+}
+else
+{
+    ; 做 b
+    ; 走此分支
+}
+
+; 片段二
+if (a != b)
+{
+    ; 做 b
+    ; 条件不成立
+}
+else
+{
+    ; 做 a
+    ; 走此分支
+}
+</pre></div>
+
+
+<p>我们看下里边的片段一和片段二。逻辑看起来好像一样，有人喜欢用等号比较，有人喜欢用不等号比较，这和习惯有关，无可厚非。但我们发现问题来了，这两段看起来一样的代码执行结果完全相反，片段一做了 b，片段二做了 a。如果这个判断很重要，会留下非常大的隐患。</p>
+<p>更要命的是，以上的代码如果设置了 StringCaseSense, On，片段一和片段二是一样的，不存在问题，但后续代码维护者可能因为某些原因，将其改成了 StringCaseSense, Off。改的人可能认为只是把原来的区分大小写改成了不区分大小写，其他地方都不用动，而不会专门把所有的 == 改成 =。而这一改可能就留下了非常严重的 bug，而且通常情况不会触发，只有在比较仅大小写不同的两个字符串时才会触发。</p>
+<h2>注意事项</h2>
+<p>所以，在比较字符串时还是需要留神的。因为通常情况我们无需设置 StringCaseSense，不等号在比较字符串的时候是不区分大小写的。对应地，我们也应该用 = 来比较字符串，以免发生之前描述的问题。如果因为某些情况，我们需要修改之前代码的 StringCaseSense，一定要仔细审视每一处用 = 或者 == 比较字符串的代码，看是否存在问题。必要的话，需要将 = 与 == 互换。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

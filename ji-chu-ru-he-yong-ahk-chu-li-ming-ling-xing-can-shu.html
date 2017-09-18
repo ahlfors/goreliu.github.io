@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="写过 C 语言的朋友都清楚 main() 函数可以有两个参数，argc 和 argv，argc 是命令行参数个数，argv 则用于访问具体参数，使用起来非常容易。那么用 AHK 如何访问命令行参数呢？ 官方文档有介绍，但并不是很详细，容易让人看后感觉一头雾水，这里简单整理一下。 获取参数的个数 要处理参数，得先清楚有没有参数，也就是获取参数的个数。 %0% 内部变量是用来存放参数个数的，这样可以用 MsgBox 弹出参数个数，是不是很简单？ MsgBox, %0% 但需要注意的时，如果一个变量名是 a，我们可以用 MsgBox, %a% 和 MsgBox, % a 两种方式在 MsgBox 中访问 a。但此时我们不能用 MsgBox, % 0 来访问参数个数，因为这样会直接弹出数字 …" />
+
+
+    <title>[基础] 如何用 AHK 处理命令行参数 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ru-he-yong-ahk-chu-li-ming-ling-xing-can-shu.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] 如何用 AHK 处理命令行参数">
+                            [基础] 如何用 AHK 处理命令行参数
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>写过 C 语言的朋友都清楚 main() 函数可以有两个参数，argc 和 argv，argc 是命令行参数个数，argv 则用于访问具体参数，使用起来非常容易。那么用 AHK 如何访问命令行参数呢？</p>
+<p>官方文档有介绍，但并不是很详细，容易让人看后感觉一头雾水，这里简单整理一下。</p>
+<h2>获取参数的个数</h2>
+<p>要处理参数，得先清楚有没有参数，也就是获取参数的个数。</p>
+<p>%0% 内部变量是用来存放参数个数的，这样可以用 MsgBox 弹出参数个数，是不是很简单？</p>
+<div class="highlight"><pre><span></span>MsgBox, %0%
+</pre></div>
+
+
+<p>但需要注意的时，如果一个变量名是 a，我们可以用 MsgBox, %a% 和 MsgBox, % a 两种方式在 MsgBox 中访问 a。但此时我们不能用 MsgBox, % 0 来访问参数个数，因为这样会直接弹出数字 0。那么如果我一定要在 MsgBox 的参数前加 % 呢？可以先将 %0% 转存到其他变量：</p>
+<div class="highlight"><pre><span></span>; 注意这里不能用 :=
+argc = %0%
+MsgBox, % argc
+</pre></div>
+
+
+<p>这样 argc 就和其他变量无异了。</p>
+<p>如果我们想判断命令行参数有多少个，也有两种方式：</p>
+<p>第一种方式，也是官方文档中的例子：</p>
+<div class="highlight"><pre><span></span>if 0 = 2
+{
+    MsgBox, 有两个参数
+}
+</pre></div>
+
+
+<p>有些朋友看到这就一头雾水了，0 怎么会等于 2？其实这句 if 判断里，2 确实是数字 2，而 0 并非数字 0，而是 %0% 的值，也就是命令行参数的个数。从这里也可以看出 AHK 语言不严谨的地方。如果实在认为这样判断太违背直觉，无法接受，也可以使用迂回的办法。</p>
+<p>第二种方式：</p>
+<div class="highlight"><pre><span></span>argc = %0%
+
+if (argc == 2)
+{
+    MsgBox, 有两个参数
+}
+</pre></div>
+
+
+<p>这样就正常多了。但需要注意，如下用法是错误的：</p>
+<div class="highlight"><pre><span></span>if (%0% == 2)
+{
+    MsgBox, 有两个参数
+}
+</pre></div>
+
+
+<p>这也是让很多人困惑的地方。毕竟 %0% 是特例，不能像用其他正常变量一样使用，需要特殊记忆一下。</p>
+<h2>获取具体参数</h2>
+<p>当我们知道了参数个数，就可以去读参数的值了，有了刚才的铺垫，这一步也容易很多了。</p>
+<p>%1% 是第一个参数，%2% 是第二个参数，依次类推。而访问 %1% %2% 的方式，和访问 %0% 是一样的。为了不违反直觉，还是建议先将参数转存到一个有意义的变量名，再作处理，例如：</p>
+<div class="highlight"><pre><span></span>flag = %1%
+
+if (flag == &quot;-c&quot;)
+{
+    MsgBox, -c 参数已传入
+}
+</pre></div>
+
+
+<h2>遍历所有参数</h2>
+<p>遍历所有参数是一种常见的处理方法，在 AHK 里也是比较容易的：</p>
+<div class="highlight"><pre><span></span>Loop, %0%
+{
+    param := %A_Index%
+    MsgBox, %param%
+}
+</pre></div>
+
+
+<p>这里又有事情需要注意了。这个 Loop 看起来没什么，%0% 就是参数的个数，有几个参数就循环几次，但<code>param := %A_Index%</code>，这里用的是<code>:=</code>，而不是<code>=</code>。这个之前的<code>param = %1%</code>是不同的。为什么有这样的区别呢？</p>
+<p>A_Index 存放的是一个数字，如果直接用<code>param := A_Index</code>，那么 param 的值自然也就是数字了，而不是对应的参数。所以需要用<code>%</code>将这个数字解析成参数。这个用法又和通常的变量有所不同。</p>
+<p>这种用法并非处理命令行参数时的特例，我们可以看下这个例子：</p>
+<div class="highlight"><pre><span></span>a := &quot;b&quot;
+b := &quot;c&quot;
+d := %a%
+MsgBox, %d%
+</pre></div>
+
+
+<p>a 的值是 b，b 的值是 c，<code>d := %a%</code>中，%a% 的值是 b，所以这里的<code>d := %a%</code>等同于<code>d := b</code>，于是 d 的值是 c。也就是可以将变量的值解析成变量名，再去取变量的值，这样的技巧在很多语言里都可以用。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

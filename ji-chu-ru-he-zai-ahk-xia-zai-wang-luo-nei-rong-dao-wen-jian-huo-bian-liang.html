@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="现在早已是网络时代了，完全单机而不需要联网的软件很少了。某些时候，用 AHK 写个脚本也是需要去网络获取数据的。 下载网络内容到本地文件 有些时候我们需要把一个网页、图片、音频等文件下载到本地，再做后续处理。在其他编程语言可能就比较麻烦了，比如先下载网络内容到一个字符串变量，然后创建一个文件，将字符串写入，再保存文件。而 AHK 内置的 UrlDownloadToFile 命令就是为这个场景量身定做的。 UrlDownloadToFile, URL, Filename 可以看到，这个命令的用法非常简单，第一个参数是文件的网络地址，第二个参数是文件的本地地址。如果第二个参数不是完整路径，文件会被下载到当前脚本的工作目录，一般情况就是脚本自身的目录。 比如我想下载 AHK 官网的 Logo 图片到 C:\test.png，就可以这样： UrlDownloadToFile, http://ahkscript.org/logos/ahk_logo.png, C:\test.png …" />
+
+
+    <title>[基础] 如何在 AHK 下载网络内容到文件或变量 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ru-he-zai-ahk-xia-zai-wang-luo-nei-rong-dao-wen-jian-huo-bian-liang.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] 如何在 AHK 下载网络内容到文件或变量">
+                            [基础] 如何在 AHK 下载网络内容到文件或变量
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>现在早已是网络时代了，完全单机而不需要联网的软件很少了。某些时候，用 AHK 写个脚本也是需要去网络获取数据的。</p>
+<h2>下载网络内容到本地文件</h2>
+<p>有些时候我们需要把一个网页、图片、音频等文件下载到本地，再做后续处理。在其他编程语言可能就比较麻烦了，比如先下载网络内容到一个字符串变量，然后创建一个文件，将字符串写入，再保存文件。而 AHK 内置的 UrlDownloadToFile 命令就是为这个场景量身定做的。</p>
+<div class="highlight"><pre><span></span>UrlDownloadToFile, URL, Filename
+</pre></div>
+
+
+<p>可以看到，这个命令的用法非常简单，第一个参数是文件的网络地址，第二个参数是文件的本地地址。如果第二个参数不是完整路径，文件会被下载到当前脚本的工作目录，一般情况就是脚本自身的目录。</p>
+<p>比如我想下载 AHK 官网的 Logo 图片到 C:\test.png，就可以这样：</p>
+<div class="highlight"><pre><span></span>UrlDownloadToFile, http://ahkscript.org/logos/ahk_logo.png, C:\test.png
+</pre></div>
+
+
+<p>是不是非常简单。除了 HTTP，UrlDownloadToFile 还支持 HTTPS 和 FTP 协议。</p>
+<h2>下载网络内容到字符串变量</h2>
+<p>但有些情况，我们并不需要将网络内容保存到文件里，而是直接使用，比如直接显示在控件里。虽然也可以先写到文件再读出来，但这样做不仅多此一举，有额外的开销，还需要考虑共用临时文件、临时文件没被删除等问题。</p>
+<p>AHK 并没有命令可以直接将网络内容下载到字符串变量，但可以使用 COM 对象 WinHttp.WinHttpRequest.5.1，官方文档中有一个例子，用起来倒也不是很麻烦。</p>
+<div class="highlight"><pre><span></span>whr := ComObjCreate(&quot;WinHttp.WinHttpRequest.5.1&quot;)
+; Open() 的第三个参数代表同步或者异步，现在不用过多关注，true 就可以了
+; 以后我们会仔细了解同步和异步
+whr.Open(&quot;GET&quot;, &quot;https://autohotkey.com/download/1.1/version.txt&quot;, true)
+whr.Send()
+whr.WaitForResponse()
+version := whr.ResponseText
+MsgBox, % version
+</pre></div>
+
+
+<p>这样就可以用 MsgBox 将从网络获取到的一个字符串弹出来了。但比起 UrlDownloadToFile 还是麻烦了不少，如果需要经常使用，还是很不方便的，这就需要封装成一个函数来使用，比如这样：</p>
+<div class="highlight"><pre><span></span>UrlDownloadToVar(url)
+{
+    static whr := ComObjCreate(&quot;WinHttp.WinHttpRequest.5.1&quot;)
+    whr.Open(&quot;GET&quot;, url, true)
+    whr.Send()
+    whr.WaitForResponse()
+    return whr.ResponseText
+}
+</pre></div>
+
+
+<p>和刚才的代码差不多，但我这里 whr 是 static 类型的，因为只需要初始化一次就可以了，调用 ComObjCreate() 是有开销的。</p>
+<p>但有些时候我们并不只需要传入一个 URL，可以还包含一些 HTTP Headers，而且使用 POST 方式访问，这就需要再改造下这个函数，比如这样：</p>
+<div class="highlight"><pre><span></span>UrlDownloadToVar(url, headers = &quot;&quot;)
+{
+    static whr := ComObjCreate(&quot;WinHttp.WinHttpRequest.5.1&quot;)
+    whr.Open(&quot;POST&quot;, url, true)
+
+    if (headers != &quot;&quot;)
+    {
+        for key, value in headers
+        {
+            whr.SetRequestHeader(key, value)
+        }
+    }
+
+    whr.Send()
+    whr.WaitForResponse()
+    return whr.ResponseText
+}
+</pre></div>
+
+
+<p>用起来也很方便，比如我要使用 POST 方式访问 test.org，携带两个 HTTP Headers，key1:value1 和 key2:value2：</p>
+<div class="highlight"><pre><span></span>result := UrlDownloadToVar(&quot;http://test.org&quot;
+    , { &quot;key1&quot; : &quot;value1&quot;, &quot;key2&quot; : &quot;value2&quot; })
+</pre></div>
+
+
+<p>如果需要设置更多参数，比如超时时间，就需要查下 WinHttp.WinHttpRequest.5.1 的文档了，基本上都可以找到自己想要的功能。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

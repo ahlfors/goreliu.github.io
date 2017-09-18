@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="前几天闲来无事买来个树莓派玩。并不是想用来做什么，甚至没想到要怎么玩，更多是因为一种“情怀”吧，关于 Linux 的。我大概从 08 年开始用桌面 Linux，一直到 15 年换成 Windows（开始时用虚拟机装 Linux，后来改用 Cygwin/MSYS2，就很少用了。再后来 Win 10 有了 WSL，我把虚拟机也删了）。但对我来说，Windows 是用的而不是玩的，甚至 WSL 基本已经能满足所有关于 Linux 的实用性功能后，我还是感觉 WSL 是用的而不是玩的。那我为什么不用虚拟机来玩 Linux呢？理论上，虚拟机可以满足所有我折腾 Linux 的功能性需求，只是有一点，感觉不一样。面对运行在虚拟机里的 Linux …" />
+
+
+    <title>关于好玩、有用和技术含量之我见 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/guan-yu-hao-wan-you-yong-he-ji-zhu-han-liang-zhi-wo-jian.html"
+                           rel="bookmark"
+                           title="Permalink to 关于好玩、有用和技术含量之我见">
+                            关于好玩、有用和技术含量之我见
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>前几天闲来无事买来个树莓派玩。并不是想用来做什么，甚至没想到要怎么玩，更多是因为一种“情怀”吧，关于 Linux 的。我大概从 08 年开始用桌面 Linux，一直到 15 年换成 Windows（开始时用虚拟机装 Linux，后来改用 Cygwin/MSYS2，就很少用了。再后来 Win 10 有了 WSL，我把虚拟机也删了）。但对我来说，Windows 是用的而不是玩的，甚至 WSL 基本已经能满足所有关于 Linux 的实用性功能后，我还是感觉 WSL 是用的而不是玩的。那我为什么不用虚拟机来玩 Linux呢？理论上，虚拟机可以满足所有我折腾 Linux 的功能性需求，只是有一点，感觉不一样。面对运行在虚拟机里的 Linux，我完全没有玩的欲望，就好像它是阶下囚一样。我想在一个单独设备安装 Linux 来玩，即使什么都不做，只是时不时 ssh 上去更新一下软件包，或者看看日志。</p>
+<p>我本来以为买回来玩两天就会感觉没什么意思，然后就放着吃灰了，但实际情况要好一些。我没有把树莓派接到显示器，也没有安装图形界面软件，全部操作都在电脑、手机或者 iPad ssh 进行。然后我就想给树莓派加一块屏幕或者连接显示器有什么意义呢？如果我需要显示一些东西，或者通过图形界面来输入一些东西，我可以写一个网页，然后用浏览器访问。说干就干，我用来了将近两天的时间，寻找最容易的实现方法（我对前端的了解还停留在多年前的简单 Html 和 JavaScript 常识），最后经过各种查找、试验、比较后，确定使用 Python（主体语言） + Flask（后端） + Vue.js（前端逻辑） + Flask-SocketIO（前后端间 WebSocket 通信） + Bootstrap-vue（前端界面），验证了我想要的功能是可以很容易实现的，并且感慨现在对于对前端几乎零基础的开发人员来说，写一个简单的看起来还像是个网站的东西还是非常容易的，就是选型比较麻烦，需要各种权衡用什么框架或者库。</p>
+<p>但写完了 Demo 后，我的热情就褪去了大半，不错，技术上是能实现的，但我想做什么呢？我本来想先做一个简单的网页，在手机可以实时查看树莓派的运行状态，并且可以发送命令获取执行结果。但这有什么意义呢？直接 ssh 上去就可以了。获取传感器的数据，以及发送控制指令？我想了想，我的房间里实在没有什么需要用传感器获取的数据，获取些温度、湿度、气压、光照、气流、声音、照片、视频等等，有什么意义呢？盯着手机屏幕看或者自动发送到微博来自嗨？想控制些什么呢？小车、飞行器、机械手臂或者其他各种华而不实的玩具做什么呢？实用的东西多半早有成型并且成本低廉的产品了。并且那些玩具中多数没有什么技术含量，硬件基本买来连上（最多动一下电烙铁）就好，虽然看起来可能很唬人，软件的逻辑基本都比较简单，而且有很多现成的库或者算法，需要自己写的代码往往不多。而且其中很多东西都有很多人玩过了，轮子已经遍地都是了。</p>
+<p>我这几天经常去网上查还有什么关于树莓派的创意玩法，没有找到吸引我的东西。在我即将让树莓派吃灰时，我突然想到一个问题，如果我只是想好玩，为什么要考虑有没有用呢？为什么要考虑有没有技术含量呢？为什么要考虑有没有前人玩过呢？</p>
+<p>我想到小孩子玩一个像弹珠之类简单的东西都可以玩一下午，甚至一个暑假，它有用吗，有技术含量吗，没有前人玩过吗？但这些都不妨碍他玩得开心。而很多成年人，能接触到的东西要比小孩子多很多，但为什么找一个真正好玩的东西反而更难了？一个很大的原因就是很多成年人往往不是纯粹地找一个好玩的东西，而是又要好玩，又要好用，又要有技术含量并且没有过时，甚至还要没有其他人玩过的，那这样能找到的可能性就大大降低了。</p>
+<p>然后我就想到很多人经常玩甚至沉溺于各种电子游戏的人，之前我总是不能真正理性地看待这些人，但现在想，他们中很多人纯粹地找到了好玩的东西，不过多考虑其他因素，沉浸进去，并且得到了快乐，如果没有因此失去更多东西，不是很好的事情吗？为什么要用是不是有用、是不是有技术含量、是不是别人都玩过的角度来看呢？</p>
+<p>同样地，如果我不考虑是不是有用、是不是有技术含量、是不是之前已经有人做过了，单纯地以玩的心态来玩树莓派，是不是就更容易找到我喜欢的玩法呢？至少思路会远比之前广阔。</p>
+<p>或许我只是把树莓派接上电源放在桌子上，时不时 ssh 上去随便敲些命令，只要自己开心，又有什么问题呢？也许慢慢我就会发现 pstree 里的进程越来越多了，或者接口上连的东西越来越多了，甚至我的生活越来越离不开它了。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="这几天做了一个视频剪辑，接触了一些相关工具，整理一下。 视频切割合并 视频切割合并是非常基础和常用的功能，往往是处理视频素材的第一步。我之前简单处理过一些音频，用的是开源软件audacity，所有想应该也有类似的处理视频的开源软件。找了一圈试用了好几个。 Shotcut 据说是很有名的开源视频剪辑软件，安装后没用明白……上网搜教程还是没用明白（智商堪忧），没找到视频如何导出，也没找到切割和合并的功能。我知道一定是我的问题，放弃了。 爱剪辑 国内的免费软件。用户体验还好，格式支持也比较多。本来打算用这个了，结果发现导出的视频会强行加入开头和结尾，无法取消（至少免费版不能取消），也罢。另外我没找到可以保持原视频分辨率的选项，自己选和原视频相同的分辨率后，导出的视频有黑边，也许是我用得有问题。 mencoder 强大的命令行工具，可以完成视频切割合并操作，麻烦是自然的。我本来想先用爱剪辑编辑，然后再用mencoder把开头和结尾去掉，因为开头和结尾时间是固定的，所以应该是可行的。但发现一个问题，视频的aac音频不能使用-oac copy，换了好几个版本的mencoder都不行（有的不支持libfaac，有的可以选择-oac faac重新编码），必须重新编码，也就是说每用mencoder处理一次，音频就得重新编码一次 …" />
+
+
+    <title>做视频剪辑整理的一些记录 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/zuo-shi-pin-jian-ji-zheng-li-de-yi-xie-ji-lu.html"
+                           rel="bookmark"
+                           title="Permalink to 做视频剪辑整理的一些记录">
+                            做视频剪辑整理的一些记录
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>这几天做了一个视频剪辑，接触了一些相关工具，整理一下。</p>
+<h2>视频切割合并</h2>
+<p>视频切割合并是非常基础和常用的功能，往往是处理视频素材的第一步。我之前简单处理过一些音频，用的是开源软件audacity，所有想应该也有类似的处理视频的开源软件。找了一圈试用了好几个。</p>
+<ol>
+<li>
+<p>Shotcut
+据说是很有名的开源视频剪辑软件，安装后没用明白……上网搜教程还是没用明白（智商堪忧），没找到视频如何导出，也没找到切割和合并的功能。我知道一定是我的问题，放弃了。</p>
+</li>
+<li>
+<p>爱剪辑
+国内的免费软件。用户体验还好，格式支持也比较多。本来打算用这个了，结果发现导出的视频会强行加入开头和结尾，无法取消（至少免费版不能取消），也罢。另外我没找到可以保持原视频分辨率的选项，自己选和原视频相同的分辨率后，导出的视频有黑边，也许是我用得有问题。</p>
+</li>
+<li>
+<p>mencoder
+强大的命令行工具，可以完成视频切割合并操作，麻烦是自然的。我本来想先用爱剪辑编辑，然后再用mencoder把开头和结尾去掉，因为开头和结尾时间是固定的，所以应该是可行的。但发现一个问题，视频的aac音频不能使用-oac copy，换了好几个版本的mencoder都不行（有的不支持libfaac，有的可以选择-oac faac重新编码），必须重新编码，也就是说每用mencoder处理一次，音频就得重新编码一次，或者使用更麻烦的方法（比如先转成其他格式，-oac copy，最后再转回来）。另外考虑到对时间线的痛苦，我还是不直接使用这么原始的工具了，ffmpeg等命令行工具同理。</p>
+</li>
+<li>
+<p>AVS Video Editor 
+据说是免费软件，安装后发现不注册的话，导出的视频是带水印的……</p>
+</li>
+<li>
+<p>Adobe Premiere Pro
+我本来不想用它，因为体积比较大（比前几个合在一起还大），而且是商业软件。但找了一圈没有其他能用的，只好用它了。功能方面，导入视频就发现个问题，不支持导入h264+aac的flv视频，好在我之前找到了一个FLV_Extract（http://www.moitah.net ）工具可以把flv中的视频和音频提取成.264和.aac格式，然后就可以导入到Adobe Premiere Pro，导入后可以把视频和音频关联到一起，虽然麻烦点至少能用了。
+操作界面没有爱剪辑那么易懂，但折腾了一会，没看教程也算会用切割合并功能了。但有时用鼠标拖动时会卡住（鼠标旁边的图示也会变，没看明白是什么功能），不知道是什么原因。还有当视频片段比较多，而且是从不同视频剪辑出来的时，播放起来容易卡顿，但看资源管理器，瓶颈貌似不在读磁盘速度上（ssd的系统盘，看Adobe Premiere Pro的磁盘读取速度在50M/s以下），CPU是i5 4590，性能上应该问题不大。
+使用了几天后，发现Adobe Premiere Pro在复杂的剪辑操作上（需要导入几十个视频用来编辑，有多条音频，需要按帧把视频对齐到音频，需要能调整选定的片段到原视频前后的部分等等）还是很有优势的。</p>
+</li>
+<li>
+<p>OpenShot
+补充一个OpenShot，前几天恰好看到的。
+界面很简洁友好。
+不支持选和源视频相同的分辨率，需要手动填写。导出视频时，导出30%后卡住了（未响应）……选h264和mpeg4编码都是，可能是视频文件的问题（一个2分多钟，h264+aac的flv文件）。换了一个（6分多钟，h264+aac的mp4文件）后，到50%多卡住了。又换了一个（6分多钟，h264+aac的mkv文件），没改分辨率导出成功了，改成和原始视频一样的分辨率后，到50%多又卡住了……
+可能因为是beta版本（2.0.6），稳定性很差，经常导出视频中未响应，没法用。但看功能方面，基本的切割合并功能还是不错的，如果稳定性没有问题也许可以应付一些简单场景。</p>
+</li>
+</ol>
+<h2>视频压缩</h2>
+<p>使用Adobe Premiere Pro导出的视频体积很大（原始视频是h264+aac 1104x622 30fps的，6分多钟，导出后400多M），我之前想直接用ffmpeg之类的命令行工具压缩（但因为调参数比较麻烦，暂时放下了），但在做字幕时搜了各种软件，找到一个小丸工具箱（https://www.maruko.in/ ）发现很好用，基本不用管参数，处理后大小变成了30多M，没看出画质降低（6分钟的原始视频大概也是这个大小）。</p>
+<p>修正一下，我导出的视频体积很大的原因是没有修改默认的“目标比特率”，改成和原始视频差不多，然后导出就小很多了，但这样画质损失比较大。还是不修改它，直接再压一遍吧。</p>
+<h2>字幕</h2>
+<p>为了弄字幕，我折腾了不少时间。
+先用的srt字幕（因为是mv，从lrc歌词转换的，没找到方便的工具。用在线网站转的，但貌似有bug，下载不了转换完的字幕文件，直接复制会有部分乱码……），但我需要右侧竖排的字幕，没找到能让srt字幕显示在屏幕右侧的方法。后来发现ass字幕可以。Aegisub（http://www.aegisub.org/ ）可以把srt字幕转成ass，然后设置字体、位置等，还是很好用的。
+但发现一个问题，设置成竖排字幕后，如果Alignment设置成6的话，字幕显示不是纵向居中的，而是偏上，甚至超出了视频边界，选3又太低了。选5是正常的，但通过调整Margins-&gt;Left调到右边又发现问题了。原来一行字幕中带空格是不自动换行的，但调整到视频右侧后，每个空格都换行了。我试过使用中文空格和\h，但间距和半角空格不一样，看起来很别扭。
+期间试了试另一个字幕编辑软件PopSub，感觉没有Aegisub好用，没怎么用明白就放弃了。
+后来用文本编辑器打开ass文件，发现可以直接编辑。上网搜了半天，说可以每行添加\pos调整位置，尝试了多次终于把位置调对了。</p>
+<p>然后是字幕封装的问题，我的一个视频对应了两种语言的字幕，mpv不能方便地选择显示不同的字幕。Mkvtoolnix（https://mkvtoolnix.download/downloads.html ）可以将视频和多个字幕合并到一个mkv文件，并且设置默认是否显示字幕，很好用。另外还可以在附件里添加字体，就不用担心播放时没有匹配的字体了。</p>
+<p>但有些视频网站（比如B站）是不支持带字幕的mkv文件的，只好把字幕压到视频里。之前提到的小丸工具箱（https://www.maruko.in/ ）有这个功能。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

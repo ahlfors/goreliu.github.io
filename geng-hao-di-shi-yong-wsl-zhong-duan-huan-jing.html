@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="Windows 10 中包含了一个 WSL （ Windows Subsystem for Linux ）子系统，我们可以在其中运行未经修改过的原生 Linux ELF 可执行文件。利用它我们可以做很多事情，对开发人员和普通用户都是如此。当然对开发人员的吸引力更大一些，因为这意味着在一些情况，不再需要使用 Linux 虚拟机、双系统、 Cygwin/MSYS2 了。 当前版本（ 14901.1000 ） Windows 10 中的 WSL 功能已经比较完善了，和刚出来时不可同日而语，也不再是一个没有实用价值的玩具了（最初的版本连 zsh 和 tmux 等最基本的工具都无法运行，基本没有可用性。但如果现在依然说 WSL 不可用，就有失偏颇了）。但对不想折腾的普通用户来说，用户体验并不好。比如中文显示有问题，不支持中文输入，只支持 16 …" />
+
+
+    <title>更好地使用 WSL 终端环境 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/geng-hao-di-shi-yong-wsl-zhong-duan-huan-jing.html"
+                           rel="bookmark"
+                           title="Permalink to 更好地使用 WSL 终端环境">
+                            更好地使用 WSL 终端环境
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>Windows 10 中包含了一个 WSL （ Windows Subsystem for Linux ）子系统，我们可以在其中运行未经修改过的原生 Linux ELF 可执行文件。利用它我们可以做很多事情，对开发人员和普通用户都是如此。当然对开发人员的吸引力更大一些，因为这意味着在一些情况，不再需要使用 Linux 虚拟机、双系统、 Cygwin/MSYS2 了。</p>
+<p>当前版本（ 14901.1000 ） Windows 10 中的 WSL 功能已经比较完善了，和刚出来时不可同日而语，也不再是一个没有实用价值的玩具了（最初的版本连 zsh 和 tmux 等最基本的工具都无法运行，基本没有可用性。但如果现在依然说 WSL 不可用，就有失偏颇了）。但对不想折腾的普通用户来说，用户体验并不好。比如中文显示有问题，不支持中文输入，只支持 16 种颜色，不能隐藏滚动条，不兼容某些命令的输出，不能定制主题和一些其他按键相关配置等。</p>
+<p>用过 Cygwin/MSYS2 的朋友都清楚有个名叫 <a href="http://mintty.github.io/">mintty</a> 的终端模拟器，体积小巧配置简单，功能也够用，如果能直接用 mintty 作为 WSL 的终端模拟器，用户体验就好很多了。<a href="https://github.com/goreliu/wsl-terminal">wsl-terminal</a> 让这成为可能。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/wiki/goreliu/wsl-terminal/images/wsl-terminal.png"></p>
+<p>wsl-terminal 支持如下功能：</p>
+<ol>
+<li>优秀的兼容性（中文显示/输入、 24 位颜色、命令输出等都正常了）。</li>
+<li>体积小巧，压缩包仅 1.7 M 多，解压后不到 10 M 。</li>
+<li>配置简单， mintty 可以直接在标题栏右键配置， wsl-terminal 的配置文件也很简单。</li>
+<li>可以直接在资源管理器右键打开终端模拟器并定位到当前目录。</li>
+<li>可以将 .sh/.py/.pl 脚本关联到用 wsl-terminal 运行。</li>
+<li>可以将文本文件关联到用 wsl-terminal 里的 vim 运行。</li>
+<li>支持 tmux ，可以在 tmux 里打开新目录，恢复已有的 tmux 会话等。</li>
+<li>支持在 WSL 里直接运行 Windows 程序。</li>
+</ol>
+<p>使用方法：</p>
+<ol>
+<li>在 https://github.com/goreliu/wsl-terminal/releases 下载 7z 格式的发布包。</li>
+<li>解压后，直接运行 open-wsl.exe 即可在当前目录打开（可以关联到快捷键）。</li>
+<li>可以运行 <code>tools/add-open-wsl-here-menu.js</code> 在资源管理器右键菜单里添加一个 <code>Open WSL Here</code> 菜单（<code>tools/remove-open-wsl-here-menu.js</code> 删除菜单）。</li>
+<li>可以修改 .sh/.py/.pl/.php 等各种脚本的打开方式为 run-wsl-file.exe ，双击就可以打开。如果需要看结果的话，记得脚本最后加个 sleep 或者 read 。</li>
+<li>可以修改文本文件的打开方式为 vim.exe ，双击就可以用 WSL 里的 vim 打开编辑。</li>
+<li>如果想做 WSL 里边运行 Windows 的软件，运行 outbash-daemon.js ，然后把 bin 里的 wrun 、wstart 、wcmd 复制到 /usr/local/bin （可以直接运行 install_cbwin.sh ），然后 wstart notepad 就可以打开记事本了。cbwin 使用文档： https://github.com/xilun/cbwin</li>
+<li>如果需要使用 tmux，在编辑文件里启用 use_tmux 即可。</li>
+</ol>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

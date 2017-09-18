@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="上一篇文章我介绍了AHK 中的字符串拼接和遍历操作，但除此之外还有很多其他类型的字符串操作。本文会罗列 AHK 中多数用于字符串操作的函数，但也正因为此，我不会对每一个函数都详细讲解和举例，大家可以直接去帮助文档查询感兴趣的函数，里边有详细的讲解和举例。另外有一些高级内容，我只在文中提及，后续会专门写文章来展开。 很多字符串处理函数还有对应的命令，比如 StrLen 函数对应 StringLen 命令。因为通常情况，函数比命令好用，有时功能还更强大，所以只介绍函数。但在性能上，命令通常要比函数好一些，如果遇到性能问题，可以自行查找帮助文档，将函数替换成对应命令。 计算长度 StrLen 函数用于计算字符串的长度，这个我们在之前的判断空字符串的文章提及过，所以并不陌生。 OutputVar := StrLen(InputVar) 需要注意的是，StrLen 的结果并非字符串所占用的字节数。如果字符串里包含中文、全角字符以及日文、韩文等非 ASCII 字符，长度也是只算 1 的，虽然实际储存时并非只消耗 1 个字节 …" />
+
+
+    <title>[基础] AHK 中的字符串处理函数 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-de-zi-fu-chuan-chu-li-han-shu.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中的字符串处理函数">
+                            [基础] AHK 中的字符串处理函数
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>上一篇文章我介绍了AHK 中的字符串拼接和遍历操作，但除此之外还有很多其他类型的字符串操作。本文会罗列 AHK 中多数用于字符串操作的函数，但也正因为此，我不会对每一个函数都详细讲解和举例，大家可以直接去帮助文档查询感兴趣的函数，里边有详细的讲解和举例。另外有一些高级内容，我只在文中提及，后续会专门写文章来展开。</p>
+<p>很多字符串处理函数还有对应的命令，比如 StrLen 函数对应 StringLen 命令。因为通常情况，函数比命令好用，有时功能还更强大，所以只介绍函数。但在性能上，命令通常要比函数好一些，如果遇到性能问题，可以自行查找帮助文档，将函数替换成对应命令。</p>
+<h2>计算长度</h2>
+<p>StrLen 函数用于计算字符串的长度，这个我们在之前的判断空字符串的文章提及过，所以并不陌生。</p>
+<div class="highlight"><pre><span></span>OutputVar := StrLen(InputVar)
+</pre></div>
+
+
+<p>需要注意的是，StrLen 的结果并非字符串所占用的字节数。如果字符串里包含中文、全角字符以及日文、韩文等非 ASCII 字符，长度也是只算 1 的，虽然实际储存时并非只消耗 1 个字节。同时，StrLen 的结果也不能作为字符串的显示长度，因为通常中文、全角字符等要比英文、半角字符的显示宽度要大（如果是等宽字体，前者的宽度是后者的两倍）。</p>
+<p>StrLen 函数对应的命令是 StringLen。</p>
+<h2>查找</h2>
+<p>查找操作是指判断一个字符串是否包含另一个字符串，如果包含，还需要找到具体的位置，这便是 InStr 函数的工作。</p>
+<div class="highlight"><pre><span></span>FoundPos := InStr(Haystack, Needle [, CaseSensitive = false, StartingPos = 1, Occurrence = 1])
+</pre></div>
+
+
+<p>InStr 函数的参数比较多。Haystack 是被查找的字符串，Needle 是待查找的字符串（即从 Haystack 里查找 Needle），CaseSensitive 用于设置是否区分大小写，StartingPos 是开始查找的位置（从头开始为 1，如果是 0 或者负数，将逆序查找），Occurrence 指查找几次（比如 Occurrence 是  2，那么即使 Haystack 里有一个 Needle，也会因为没有第 2 个 Needle 而返回 0）。</p>
+<p>InStr 函数的返回值是 Needle 在 Haystack 的位置，从 1 开始。如果返回 0，说明没找到。</p>
+<p>和 InStr 函数有关的命令有 IfInString、IfNotInString、StringGetPos，如果遇到性能问题，可以使用。</p>
+<p>另外 if 也可以用来判断一个字符串中是否包含另一个字符串。可以在帮助文档搜索 if var [not] in/contains 找到，里边有详细讲解。我也会在以后专门介绍 if 判断的文章里展开。</p>
+<h2>截取</h2>
+<p>截取操作是指取一个字符串的子字符串，这正是 SubStr 函数的工作。</p>
+<div class="highlight"><pre><span></span>NewStr := SubStr(String, StartPos [, Length])
+</pre></div>
+
+
+<p>SubStr 函数很好理解，String 即原始字符串。StartPos 为截取的起点，从 1 开始，如果为 0，表示截取最后一个字符；如果为 -1，表示截取最后两个字符，以此类推。Length 为截取的长度，如果省略指截到原始字符串的末尾。</p>
+<p>和 SubStr 函数有关的命令有 StringLeft、StringRight、StringMid、StringTrimLeft、StringTrimRight，这些命令用起来都不大方便，如果遇到性能问题，可以使用。</p>
+<h2>分隔</h2>
+<p>分隔字符串，和我们上一篇文章了解到的遍历字符串很像，但 StrSplit 使用起来更灵活。</p>
+<div class="highlight"><pre><span></span>Array := StrSplit(String [, Delimiters, OmitChars])
+</pre></div>
+
+
+<p>String 是原始字符串，Delimiters 是分割符（和 Loop, Parse 不同，这里支持字符串，而且可以是一个字符串数组，非常强大），OmitChars 是移除和分隔符相邻的特定字符。</p>
+<p>返回的结果 Array 是一个数组，可以用 Array[1] 访问第一个元素，用 Array.Length() 获取数组中的元素个数等。以后我们会专门了解数组的用法。</p>
+<p>StrSplit 函数对应的命令是 StringSplit，但二者在细节上有很多不同，如果因为性能等原因一定要用 StringSplit，要仔细测试。</p>
+<h2>替换</h2>
+<p>有时我们需要将字符串的特定内容替换成其他内容，StrReplace 函数就派上用场了。</p>
+<div class="highlight"><pre><span></span>OutputVar := StrReplace(Haystack, SearchText [, ReplaceText, OutputVarCount, Limit := -1])
+</pre></div>
+
+
+<p>StrReplace 函数参数比较多，但也很好理解。Haystack 是原始字符串，SearchText 是被替换的内容，ReplaceText 是替换成的内容（如果省略，代表直接删除），OutputVarCount 用来存放替换的次数（如果省略代表不保存），Limit 指最多替换几次（-1 指全部替换，如果为 1，代表只替换找到的第一个）。</p>
+<p>StrReplace 函数对应的命令是 StringReplace。</p>
+<h2>判断类型</h2>
+<p>判断类型是指判断一个字符串是否是整数、浮点数、字母、大写字母、小写字母、空白、时间等。</p>
+<p>帮助文档里讲得很详细，这里就不展开了，搜 if var is [not] type 即可。</p>
+<p>这里举个和下一节有关的判断大小写字母的例子：</p>
+<div class="highlight"><pre><span></span>a := &quot;abc&quot;
+b := &quot;ABC&quot;
+c := &quot;abc1&quot;
+
+if a is lower
+{
+    ; 条件成立，只有字符串里全部是小写字母（a-z）才成立
+}
+
+if b is upper
+{
+    ; 条件成立，同理
+}
+
+if c is lower
+{
+    ; 条件不成立，因为包含了一个数字
+}
+</pre></div>
+
+
+<h2>大小写转换</h2>
+<p>有时我们需要转换字符串中字母的大小写，StringLower 命令用于将大写字母转换成小写，StringUpper 命令用于将小写字母转换成大写。</p>
+<div class="highlight"><pre><span></span>StringLower, OutputVar, InputVar [, T]
+StringUpper, OutputVar, InputVar [, T]
+</pre></div>
+
+
+<p>参数中的 OutputVar 和 InputVar 都是变量名，即不用加 %。T 参数表示将字符串转换为标题格式，即每个单词的首字母大写，其余部分小写。</p>
+<h2>移除首尾指定字符</h2>
+<p>有时我们需要移除一个字符串首尾的某些字符，典型情况就是移除首尾的空格。这就需要使用 Trim 系列函数。</p>
+<div class="highlight"><pre><span></span>Result := Trim(String, OmitChars = &quot; `t&quot;)
+Result := LTrim(String, OmitChars = &quot; `t&quot;)
+Result := RTrim(String, OmitChars = &quot; `t&quot;)
+</pre></div>
+
+
+<p>这三个函数用法一致，Trim 用于移除字符串首尾（两侧）的指定字符，LTrim 用于移除字符串首部（左侧）的指定字符，RTrim 用于移除字符串尾部（右侧）的指定字符。</p>
+<p>另外还有一个和此相关的命令。</p>
+<div class="highlight"><pre><span></span>AutoTrim, On|Off
+</pre></div>
+
+
+<p>AutoTrim 的含义是在用 = 赋值时是否自动移除首尾空白（空格和 Tab），默认是移除。</p>
+<h2>格式化</h2>
+<p>格式化操作主要是将整数、浮点数等格式化成特定格式的字符串，用来展示。这主要是 Format 函数的工作，SetFormat 命令也与此有关。Format 函数的参数很复杂，但帮助文档里有详细讲解，暂时就不展开了，以后可能单独讲解。</p>
+<h2>排序</h2>
+<p>对字符串排序可以使用 Sort 命令，因为排序比较复杂，我以后再单独讲。</p>
+<h2>字符编码操作</h2>
+<p>通常情况，我们不需要了解字符串对应的二进制数据是怎样的。但有些时候我们需要知道字符对应编码（比如 ASCII 编码，或者 UTF-8 编码），在字符与编码间相互转换等，Asc、Chr、Ord 函数用于此类操作。这其中涉及到一些复杂问题，先不展开，我以后会单独讲。</p>
+<h2>内存操作</h2>
+<p>通常情况，我们不需要关注字符串在内存是怎么储存的，但某些场景我们需要这么做，比如转编码（此处编码指代码页，比如将字符串从 UTF-8 转成 CP936）。这就需要用到 StrPut 和 StrGet 函数。这属于高级内容，也比较复杂，我以后会单独讲。</p>
+<h2>正则表达式</h2>
+<p>正则表达式也是用来查找和替换字符串用的，但自成体系，功能强大，也特别复杂。RegExMatch 函数、RegExReplace 函数和 ~= 运算符和正则表达式有关。因为 AHK 中的正则表达式和其他语言中的大同小异，而且关于正则表达式的内容特别多，暂时就不展开了，以后也会单独讲到。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

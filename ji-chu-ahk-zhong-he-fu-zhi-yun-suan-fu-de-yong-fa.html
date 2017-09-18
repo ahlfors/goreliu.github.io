@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="在接触一门新的编程语言后，了解如何对变量赋值几乎是第一步。有了变量，才可以对变量进行数学运算或者逻辑判断，将调用函数得到的结果存入变量也需要赋值操作。可见赋值运算符的重要性。 但很多 AHK 初学者（包括其他编程语言的老手）惊奇地发现 AHK 有两种赋值运算符，= 和 :=，而且它们的用法居然不一样。一时摸不到头脑，甚至对 AHK 顿生反感。当然这不能怪用户，赋值操作如此混乱的语言，恐怕无出其右了。但如果掌握了，也会发现在赋值操作上，AHK 要比其他语言更为灵活和方便。 := 的用法 先介绍其中相对好理解的 := 运算符。 := 和其他语言的 = 用法基本一致，来看几个例子： a := 123 b := 456.789 c := &#34;text&#34; d := a e := a . c 可以看到如果将变量赋值成整数、浮点数、字符串，直接写就好了。我们也可以把一个已经存在的变量赋值给一个新变量。这和其他语言中 …" />
+
+
+    <title>[基础] AHK 中 = 和 ：= 赋值运算符的用法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-he-fu-zhi-yun-suan-fu-de-yong-fa.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中 = 和 ：= 赋值运算符的用法">
+                            [基础] AHK 中 = 和  ：= 赋值运算符的用法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>在接触一门新的编程语言后，了解如何对变量赋值几乎是第一步。有了变量，才可以对变量进行数学运算或者逻辑判断，将调用函数得到的结果存入变量也需要赋值操作。可见赋值运算符的重要性。</p>
+<p>但很多 AHK 初学者（包括其他编程语言的老手）惊奇地发现 AHK 有两种赋值运算符，= 和 :=，而且它们的用法居然不一样。一时摸不到头脑，甚至对 AHK 顿生反感。当然这不能怪用户，赋值操作如此混乱的语言，恐怕无出其右了。但如果掌握了，也会发现在赋值操作上，AHK 要比其他语言更为灵活和方便。</p>
+<h2>:= 的用法</h2>
+<p>先介绍其中相对好理解的 := 运算符。</p>
+<p>:= 和其他语言的 = 用法基本一致，来看几个例子：</p>
+<div class="highlight"><pre><span></span>a := 123
+b := 456.789
+c := &quot;text&quot;
+d := a
+e := a . c
+</pre></div>
+
+
+<p>可以看到如果将变量赋值成整数、浮点数、字符串，直接写就好了。我们也可以把一个已经存在的变量赋值给一个新变量。这和其他语言中 = 的用法并无二致。.（点运算符）用来拼接字符串，这个在后续文章中也会单独介绍。</p>
+<p>如果我们将一个不存在的变量赋值给一个新变量，像这样：</p>
+<div class="highlight"><pre><span></span>f := abc
+</pre></div>
+
+
+<p>那么 f 将是一个空字符串，也就是和这样效果一样：</p>
+<div class="highlight"><pre><span></span>f := &quot;&quot;
+</pre></div>
+
+
+<h2>= 的用法</h2>
+<p>然后我们再来看 =。</p>
+<p>= 后边的内容全部被认为是字符串，看几个例子：</p>
+<div class="highlight"><pre><span></span>a = 123
+b = 456.789
+c = text
+d = a
+e = %a%
+f = %a%456
+</pre></div>
+
+
+<p>注意这里边的 a 和 b 已经不是整数和浮点数了，而全是字符串。d 的值也不是 123，而是字符串 a。那么是不是 = 只能用来将一个字符串常量赋值给一个变量呢？如果这样的话，= 基本也没有存在的必要了。我们可以看下 e = %a%，里边有一个奇怪的 % 符号（% 也是 AHK 中的大坑，以后我会专门写文章介绍），%a% 的意思是取 a 变量的值，所以 e 的值是字符串 123，同理 f 的值是字符串 123456。是不是 = 比 := 稍微难理解一些？</p>
+<p>另外 = 还有一些高级用法，比如将多行文本赋值给一个变量：</p>
+<div class="highlight"><pre><span></span>a =
+(
+123
+456
+789
+)
+</pre></div>
+
+
+<p>在括号中的多行文本会被赋值给 a，这在某些需要赋值大段文字的场景是非常方便的。</p>
+<p>用 = 赋值空字符串也更加简洁：</p>
+<div class="highlight"><pre><span></span>a =
+</pre></div>
+
+
+<p>（其实 a := 这样用也是可以的，虽然看起来怪怪的。）</p>
+<p>此外在某些场景只能用 = 赋值，比如上一篇文章中处理命令行参数的场景：</p>
+<div class="highlight"><pre><span></span>argc = %0%
+argv1 = %1%
+</pre></div>
+
+
+<h2>使用场景</h2>
+<p>既然 = 和 := 在多数情况都可以实现相同的功能，什么场景应该使用 =，什么场景应该使用 := 呢？</p>
+<p>这个并没有明确的规定，可以因人而异，根据自己的习惯来。但尽量前后统一，以免给自己和别人带来麻烦。</p>
+<p>一般来说，使用 := 是更加严谨的，这也是和其他编程语言的用法对齐，更易于被接受。但也并不是弃 = 而不用，在某些场景，比如赋值大段文字，= 还是非常方便的。</p>
+<p>关于 = 的用法，此文只是简单介绍几个例子，还有更多的用法期待大家发掘。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

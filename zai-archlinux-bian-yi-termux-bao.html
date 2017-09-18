@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="Termux 是 Android 上的一个非常强大的终端模拟器。强大之处在于支持使用 apt 安装 zsh、git、vim、python、ruby、nodejs、openssh、gcc、golang 等几乎所有常用的终端软件，从此不用忍受功能孱弱的 busybox。 目前 termux 源中有 400 多个包，显然还有很多不那么常用的没有覆盖到，除了在 Issues · termux/termux-packages 上反馈外，自己编译也是个不错的主意。但目前相关文档比较匮乏（主页的 Readme 有错误），一不留神就会将简单的事情复杂化，耽误时间，故整理此文。 需要注意的是，虽然 Termux 包使用的是 deb 格式，但无需使用基于 Debian 或者 Ubuntu 的发行版。 主页的 …" />
+
+
+    <title>在 Archlinux 编译 Termux 包 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/zai-archlinux-bian-yi-termux-bao.html"
+                           rel="bookmark"
+                           title="Permalink to 在 Archlinux 编译 Termux 包">
+                            在 Archlinux 编译 Termux 包
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p><a href="https://termux.com/">Termux</a> 是 Android 上的一个非常强大的终端模拟器。强大之处在于支持使用 apt 安装 zsh、git、vim、python、ruby、nodejs、openssh、gcc、golang 等几乎所有常用的终端软件，从此不用忍受功能孱弱的 busybox。</p>
+<p>目前 termux 源中有 400 多个包，显然还有很多不那么常用的没有覆盖到，除了在 <a href="https://github.com/termux/termux-packages/issues">Issues · termux/termux-packages</a> 上反馈外，自己编译也是个不错的主意。但目前相关文档比较匮乏（主页的 Readme 有错误），一不留神就会将简单的事情复杂化，耽误时间，故整理此文。</p>
+<p>需要注意的是，虽然 Termux 包使用的是 deb 格式，但无需使用基于 Debian 或者 Ubuntu 的发行版。</p>
+<p><a href="https://github.com/termux/termux-packages">主页的 Readme </a> 提供了两种方式，一种是使用 Docker 中的 Ubuntu 镜像，一种是直接在 Ubuntu 搭建环境。</p>
+<p>我图省事先用的 Docker 方式，虽然看起来很简单，只需要执行两条命令，但我折腾了几十分钟也没搞定。</p>
+<p>因为执行 <code>docker build --rm=true -t termux .</code> 后会安装和升级大量（1G 左右）的包，默认的官方源速度是很不给力的。这样或者修改 <code>Dockerfile</code> 修改源，或者直接手动进 Docker 里操作。这就不是两条命令的事情了，需要对 Docker 比较熟悉。我选择直接手动进 Docker 里操作。在安装过程中，我发现安装了大量看起来没有用的包，占用了大量空间。同时我看了下 <code>build-package.sh</code> 脚本，发现并没有依赖 Ubuntu 特有的命令，于是改用直接在 Archlinux 里搭建环境，这样能节省很多时间。</p>
+<p>大概看了下几个脚本，发现步骤很简单：</p>
+<ol>
+<li>下载 termux-packages （<code>git clone https://github.com/termux/termux-packages.git</code>）。</li>
+<li>安装 android-ndk。下载 http://dl.google.com/android/android-sdk_r24.3.4-linux.tgz ，解压到 $HOME/lib/android-ndk （该目录下有 source.properties 文件）。（android-sdk 通常不需要，如需要，方法类似）</li>
+<li>创建 /data/data/com.termux/files/usr 目录，并把 /data 的属主改成当前用户。</li>
+<li>进入 termux-packages ，就可以直接用 <code>./build-package.sh packagename</code> 编译包了（如果提示命令找不到，安装对应的包即可）。</li>
+</ol>
+<p>搭建完可以随便编译一个包试试：</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="s s-Atom">build</span><span class="o">-</span><span class="s s-Atom">package</span><span class="p">.</span><span class="s s-Atom">sh</span> <span class="s s-Atom">bc</span>
+<span class="s s-Atom">termux</span> <span class="o">-</span> <span class="s s-Atom">building</span> <span class="s s-Atom">bc</span><span class="p">...</span>
+  <span class="c1">% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span>
+                                 <span class="nv">Dload</span>  <span class="nv">Upload</span>   <span class="nv">Total</span>   <span class="nv">Spent</span>    <span class="nv">Left</span>  <span class="nv">Speed</span>
+<span class="mi">100</span>  <span class="mi">283</span><span class="s s-Atom">k</span>  <span class="mi">100</span>  <span class="mi">283</span><span class="s s-Atom">k</span>    <span class="mi">0</span>     <span class="mi">0</span>  <span class="mi">12885</span>      <span class="mi">0</span>  <span class="mi">0</span><span class="s s-Atom">:</span><span class="mi">00</span><span class="s s-Atom">:</span><span class="mi">22</span>  <span class="mi">0</span><span class="s s-Atom">:</span><span class="mi">00</span><span class="s s-Atom">:</span><span class="mi">22</span> <span class="s s-Atom">--:--:--</span> <span class="mi">74740</span>
+<span class="nn">sed</span><span class="p">:</span> <span class="s s-Atom">no</span> <span class="s s-Atom">input</span> <span class="s s-Atom">files</span>
+<span class="nn">configure</span><span class="p">:</span> <span class="nv">WARNING</span><span class="s s-Atom">:</span> <span class="nv">If</span> <span class="s s-Atom">you</span> <span class="s s-Atom">wanted</span> <span class="s s-Atom">to</span> <span class="s s-Atom">set</span> <span class="s s-Atom">the</span> <span class="s s-Atom">--build</span> <span class="s s-Atom">type</span><span class="p">,</span> <span class="s s-Atom">don&#39;t use --host.</span>
+<span class="s s-Atom">    If a cross compiler is detected then cross compile mode will be used.</span>
+<span class="s s-Atom">checking for a BSD-compatible install... /usr/bin/install -c</span>
+<span class="s s-Atom">checking whether build environment is sane... yes</span>
+<span class="s s-Atom">checking for gawk... gawk</span>
+<span class="s s-Atom">checking whether make sets $(MAKE)... yes</span>
+<span class="s s-Atom">...</span>
+<span class="s s-Atom">make[2]: Leaving directory &#39;</span><span class="o">/</span><span class="s s-Atom">home</span><span class="o">/</span><span class="s s-Atom">goreliu</span><span class="o">/</span><span class="s s-Atom">termux</span><span class="o">/</span><span class="s s-Atom">bc</span><span class="o">/</span><span class="s s-Atom">build&#39;dc&#39;&#39;</span>
+<span class="s s-Atom">make[1]: Leaving directory &#39;</span><span class="o">/</span><span class="s s-Atom">home</span><span class="o">/</span><span class="s s-Atom">goreliu</span><span class="o">/</span><span class="s s-Atom">termux</span><span class="o">/</span><span class="s s-Atom">bc</span><span class="o">/</span><span class="s s-Atom">build&#39;-- &quot;/data/data/com.termux/files/usr/bin&quot;</span>
+<span class="s s-Atom">termux-elf-cleaner: Removing the DT_VERNEEDED dynamic section entry from &#39;</span><span class="p">.</span><span class="o">/</span><span class="s s-Atom">bin</span><span class="o">/</span><span class="s s-Atom">bc&#39;</span>
+<span class="s s-Atom">termux-elf-cleaner: Removing the DT_VERNEEDNUM dynamic section entry from &#39;</span><span class="p">.</span><span class="o">/</span><span class="s s-Atom">bin</span><span class="o">/</span><span class="s s-Atom">bc&#39;</span>
+<span class="s s-Atom">termux-elf-cleaner: Removing the DT_VERNEEDED dynamic section entry from &#39;</span><span class="p">.</span><span class="o">/</span><span class="s s-Atom">bin</span><span class="o">/</span><span class="s s-Atom">dc&#39;</span>
+<span class="s s-Atom">termux-elf-cleaner: Removing the DT_VERNEEDNUM dynamic section entry from &#39;</span><span class="p">.</span><span class="o">/</span><span class="s s-Atom">bin</span><span class="o">/</span><span class="s s-Atom">dc&#39;/files/usr/info&quot;</span>
+<span class="s s-Atom">termux - build of &#39;bc</span><span class="err">&#39;</span> <span class="s s-Atom">done</span>
+</pre></div>
+
+
+<p>因为 <code>build-package.sh</code> 这个脚本写得比较渣，可能提示一些错误，但不影响功能，编译出来了。结果在 <code>$HOME/termux/_deb/bc_1.06.95-1_arm.deb</code> 。</p>
+<p>这里需要注意的是 <code>build-package.sh</code> 编译的是 32 位 arm 版本，如果需要的不是这个，可以直接改 <code>build-package.sh</code> ，将</p>
+<div class="highlight"><pre><span></span>: <span class="cp">${</span><span class="n">TERMUX_ARCH</span><span class="p">:</span><span class="o">=</span><span class="s2">&quot;arm&quot;</span><span class="cp">}</span> # (arm|aarch64|i686|x86_64) - the 64 bit variants do not work yet
+</pre></div>
+
+
+<p>里的 <code>"arm"</code>改成后边括号内的，比如 aarch64 是64 位 arm 的。</p>
+<p>还有因为 android-ndk 目录体积巨大，在编译完一个包后，这个目录的同级目录下会产生一个类似 android-standalone-toolchain-aarch64-api21-gcc4.9 的目录，然后我们就可以只保留 android-ndk 下的 source.properties 文件，将该目录其他文件删除（试验如此，保险的话还是先保留）。</p>
+<p>验证没问题了，我们就可以添加源里没有的包了，拿 atool 举例：</p>
+<p>新建 termux-packages/packages/atool 目录，在该目录创建 build.sh 文件，内容如下：</p>
+<div class="highlight"><pre><span></span>TERMUX_PKG_HOMEPAGE=http://www.nongnu.org/atool
+TERMUX_PKG_DESCRIPTION=&quot;A script for managing file archives of various types&quot;
+TERMUX_PKG_VERSION=0.39.0
+TERMUX_PKG_BUILD_REVISION=1
+TERMUX_PKG_SRCURL=https://savannah.nongnu.org/download/atool/atool-<span class="cp">${</span><span class="n">TERMUX_PKG_VERSION</span><span class="cp">}</span>.tar.gz
+TERMUX_PKG_DEPENDS=&quot;file, perl&quot;
+TERMUX_PKG_PLATFORM_INDEPENDENT=yes
+</pre></div>
+
+
+<p>这些字段都比较简单，参考 termux-packages/packages 下的例子就可以写出来（有疑问的话，可以看 build-package.sh 脚本的实现）。</p>
+<p>然后在 termux-packages 目录运行 <code>./build-package.sh atool</code> 就可以了。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

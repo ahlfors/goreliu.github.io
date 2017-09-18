@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="这算是第一篇非技术的文章吧。转眼间也陆续写了十多篇 AHK 教程，今天整理了下，没有找到特别想写的话题，就简单写下自己对 AHK 这门编程语言的看法吧，或许也会提一些其他或有关或无关的事情。 前些天在 AHK 官网论坛看到这样一个帖子：Why doesn&#39;t AHK get the respect it deserves? （为什么 AHK 没有得到应有的尊重）。里边一些人的观点还是比较有参考意义的，我昨天想翻译一下其中的部分内容，现在只翻译了一部分，等完成了可能会发出来。然后我又一想，为什么不先表达一下我自己的观点呢？ AHK 对于很多用户来说似乎扮演着一门启蒙编程语言的角色，用户慢慢发现 AHK 有着一些限制，于是转而使用 Python 等其他编程语言。而我不是这样的。我第一次系统学习的编程语言是 JavaScript，距离现在也已经有十年之久。在之后的十年里，我陆续学习和使用过各种各样的编程语言，在工作中用的最多的则是 C++、Shell 和 Python。而我开始对 …" />
+
+
+    <title>AHK 优势劣势之我见 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ahk-you-shi-lie-shi-zhi-wo-jian.html"
+                           rel="bookmark"
+                           title="Permalink to AHK 优势劣势之我见">
+                            AHK 优势劣势之我见
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/cao-gao.html">草稿</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>这算是第一篇非技术的文章吧。转眼间也陆续写了十多篇 AHK 教程，今天整理了下，没有找到特别想写的话题，就简单写下自己对 AHK 这门编程语言的看法吧，或许也会提一些其他或有关或无关的事情。</p>
+<p>前些天在 AHK 官网论坛看到这样一个帖子：<a href="https://autohotkey.com/board/topic/90892-why-doesnt-ahk-get-the-respect-it-deserves/">Why doesn't AHK get the respect it deserves? </a>（为什么 AHK 没有得到应有的尊重）。里边一些人的观点还是比较有参考意义的，我昨天想翻译一下其中的部分内容，现在只翻译了一部分，等完成了可能会发出来。然后我又一想，为什么不先表达一下我自己的观点呢？</p>
+<p>AHK 对于很多用户来说似乎扮演着一门启蒙编程语言的角色，用户慢慢发现 AHK 有着一些限制，于是转而使用 Python 等其他编程语言。而我不是这样的。我第一次系统学习的编程语言是 JavaScript，距离现在也已经有十年之久。在之后的十年里，我陆续学习和使用过各种各样的编程语言，在工作中用的最多的则是 C++、Shell 和 Python。而我开始对 AHK 感兴趣是在今年（2016）年初。那么我为什么会对 AHK 感兴趣？本来想简单提下我的经历，但写着写着发现写成回忆录了，所以还是闲言少叙吧。</p>
+<p>简单说，我需要这样的一门编程语言，在 Windows 下可以比较容易的写图形界面软件，但发布后的文件要小（至多 5 M），同时开发环境尽量简单（尽量 1 G 以内），还有一点不能是已经过时无人维护的东西。</p>
+<p>找来找去，我发现 AHK 是一个看起来合适的选择。</p>
+<p>然后我罗列了所有我能想到的选择：</p>
+<ol>
+<li>C/C++ + Windows API。发布后的文件够小，开发环境也不算太大（可以使用 MinGW），但开发效率极低。</li>
+<li>C++ + MFC。发布后的文件够小，开发环境比较大，开发效率比较低，而且 MFC 已经属于过时技术。</li>
+<li>C++ + Qt。发布后的文件比较大，开发环境比较大，开发效率中等。</li>
+<li>C/C++ + 其他图形界面库。没有发布后文件大小、开发环境大小、开发效率能权衡成满意的，顾此失彼。而且很多可选项都是无人维护状态。</li>
+<li>Python + Qt。发布后的文件很大，开发环境比较大，开发效率高。</li>
+<li>Python + 其他图形界面库。发布后的文件都比较大，因为带一个 Python 就不小了，如果是简单的图形界面库，用起来不方便，复杂的体积就更大。</li>
+<li>JavaScript + 各种框架。如果是系统自带的，存在 IE 版本等问题。如果是第三方的，存在体积过大的问题。</li>
+<li>Delphi。Delphi。</li>
+</ol>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

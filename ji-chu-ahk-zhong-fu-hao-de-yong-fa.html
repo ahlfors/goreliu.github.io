@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="AHK 中有一个很特别的符号 %。几乎随便从网上下一段 AHK 代码，就可以看到里边有 % 符号，而且 % 在 AHK 里的用法和所有其他编程语言都不一样，基本靠猜的话是猜不出来的。 用法一：%var% 第一种用法我们在介绍赋值表达式的时候接触过： a = 123 b = %a% c = %a%456 当用 = 对变量赋值时，如果一个字符串被两个 % 包围，并且中间没有空格，那么含义是取这个变量的值。 在调用一个命令时，也是这样。 a = 123 MsgBox, %a% 如果我们这样用，Name, xx, yy，Name 就是命令；如果我们这样用，Name(&#34;xx&#34;, &#34;yy&#34;)，Name 就是函数。命令和函数的区别我们也会在之后的文章了解到，现在只需要关注命令即可。 注意两个%之间只能有一个单独的变量名 …" />
+
+
+    <title>[基础] AHK 中 % 符号的用法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/ji-chu-ahk-zhong-fu-hao-de-yong-fa.html"
+                           rel="bookmark"
+                           title="Permalink to [基础] AHK 中 % 符号的用法">
+                            [基础] AHK 中 % 符号的用法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/ahk.html">AHK</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>AHK 中有一个很特别的符号 %。几乎随便从网上下一段 AHK 代码，就可以看到里边有 % 符号，而且 % 在 AHK 里的用法和所有其他编程语言都不一样，基本靠猜的话是猜不出来的。</p>
+<h2>用法一：%var%</h2>
+<p>第一种用法我们在介绍赋值表达式的时候接触过：</p>
+<div class="highlight"><pre><span></span>a = 123
+b = %a%
+c = %a%456
+</pre></div>
+
+
+<p>当用 = 对变量赋值时，如果一个字符串被两个 % 包围，并且中间没有空格，那么含义是取这个变量的值。</p>
+<p>在调用一个命令时，也是这样。</p>
+<div class="highlight"><pre><span></span>a = 123
+MsgBox, %a%
+</pre></div>
+
+
+<p>如果我们这样用，<code>Name, xx, yy</code>，Name 就是命令；如果我们这样用，<code>Name("xx", "yy")</code>，Name 就是函数。命令和函数的区别我们也会在之后的文章了解到，现在只需要关注命令即可。</p>
+<p>注意两个%之间只能有一个单独的变量名，像 x[1]、x.y、x[y]、fun() 等一概不支持。</p>
+<h2>用法二：% var</h2>
+<p>% 还有另一种用法，这回它只出现一个，并且 % 的后边有至少一个空格。</p>
+<div class="highlight"><pre><span></span>a = 123
+b = % a
+MsgBox, % a
+</pre></div>
+
+
+<p>这样用表示 % 后边的内容按表达式来解析。我们可以认为：</p>
+<div class="highlight"><pre><span></span>b = %a%
+MsgBox, %a%
+</pre></div>
+
+
+<p>和</p>
+<div class="highlight"><pre><span></span>b = % a
+MsgBox, % a
+</pre></div>
+
+
+<p>是一样的，实际上后者更强大一些。</p>
+<div class="highlight"><pre><span></span>a := 1
+b := 2
+c := 3
+
+; 计算 a + b + c，结果为 6
+MsgBox, % a + b + c
+
+; 语法错误
+; MsgBox, %a + b + c%
+
+; 语法正确，但 + 失去计算功能，变成了字符串的一部分
+; MsgBox, %a% + %b% + %c%
+</pre></div>
+
+
+<p>如果 % 后边不只是一个变量名，而是一个表达式，那么“用法二”有效，“用法一”无效。</p>
+<h2>使用“用法一”还是“用法二”</h2>
+<p>我们发现“用法一”和“用法二”的功能上是有重叠的，那么实际情况应该怎么用呢？这个还是因人而异，尽量前后一致即可。但在某些场景“用法一”更方便，某些情况“用法二”更方便，甚至只能用“用法二”。</p>
+<p>“用法一”更方便的场景：</p>
+<div class="highlight"><pre><span></span><span class="p">;</span> <span class="err">变量本身包含双引号等特殊字符</span>
+<span class="n">c</span> <span class="o">=</span> <span class="s">&quot;%a% %b%&quot;</span>
+
+<span class="p">;</span> <span class="err">多行字符串中包含变量</span>
+<span class="n">c</span> <span class="o">=</span>
+<span class="p">(</span>
+<span class="n">xxx</span>
+<span class="nf">%a</span><span class="o">%</span>
+<span class="nf">%b</span><span class="o">%</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>“用法二”更方便的场景：</p>
+<div class="highlight"><pre><span></span>; 字符串中的变量居多
+MsgBox, % a &quot; &quot; b &quot; &quot; c &quot; &quot; d
+</pre></div>
+
+
+<p>只能用“用法二”的场景：</p>
+<div class="highlight"><pre><span></span>; 需要使用表达式
+MsgBox, % a + b - c
+</pre></div>
+
+
+<p>另外如果考虑性能的话，“方法一”是要比“方法二”快二分之一到一倍的，但一般情况瓶颈不应该出现在这里，所以也不用过多在乎性能问题，如果真的是因为在很大的循环里使用而产生性能问题，修改一下也是很轻松的事情。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="注：并非严谨的翻译，部分内容有删改。另外该帖子是三年前的，有关 AHK 的内容可能有些部分已经过时。所有内容都和我的个人观点无关。 源地址：Why doesn&#39;t AHK get the respect it deserves? Cruncher1，2013 年 3 月 2 日 在 Google 搜“简单易学的编程语言”或者“创建图形界面的编程语言”之类的时候，你永远不会在结果中看到 AHK。然后，它是创建一个简洁的图形界面来完成日常工作的最容易的方法。它很有趣也易于学习，我想对于每个人而言，它都是一门令人惊叹的编程语言。甚至我 6 岁大的孩子都可以学会足够的代码用来娱乐。我并不是一个“真正”的程序员，所以我请教下。什么事情上 Java、Python 或者 C …" />
+
+
+    <title>[译] 为什么 AHK 没有得到应有的尊重 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/yi-wei-shi-yao-ahk-mei-you-de-dao-ying-you-de-zun-zhong.html"
+                           rel="bookmark"
+                           title="Permalink to [译] 为什么 AHK 没有得到应有的尊重">
+                            [译]  为什么 AHK 没有得到应有的尊重
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/cao-gao.html">草稿</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <div class="highlight"><pre><span></span>注：并非严谨的翻译，部分内容有删改。另外该帖子是三年前的，有关 AHK 的内容可能有些部分已经过时。所有内容都和我的个人观点无关。
+</pre></div>
+
+
+<p>源地址：<a href="https://autohotkey.com/board/topic/90892-why-doesnt-ahk-get-the-respect-it-deserves/">Why doesn't AHK get the respect it deserves? </a></p>
+<h2>Cruncher1，2013 年 3 月 2 日</h2>
+<p>在 Google 搜“简单易学的编程语言”或者“创建图形界面的编程语言”之类的时候，你永远不会在结果中看到 AHK。然后，它是创建一个简洁的图形界面来完成日常工作的最容易的方法。它很有趣也易于学习，我想对于每个人而言，它都是一门令人惊叹的编程语言。甚至我 6 岁大的孩子都可以学会足够的代码用来娱乐。我并不是一个“真正”的程序员，所以我请教下。什么事情上 Java、Python 或者 C++ 可以做，而 AHK 做不到的呢？</p>
+<h2>IsNull，2013 年 3 月 2 日</h2>
+<p>脚本语言和更专业的编程语言开始合为一体了，性能不再是关键问题。</p>
+<p>现在一门编程语言的功能特性更重要。开发效率和代码的可维护性是最重要的方面。</p>
+<p>然而，AHK 缺失管理大型项目所需的一些概念。比如类型定义、类型安全（这些特性通常被 IDE 很好地支持，以便提高生产力）。</p>
+<p>缺失对多线程的支持是另一个问题，可能是和其他语言相比 AHK 最大的一个局限。</p>
+<p>更专业的编程语言的严谨让它们对新手不那么友好。有人可能会说，脚本语言通常遵循着“直接使用，无需事先定义”的原则，而专业的编程语言则是“使用前必须先定义”。这真是个悲伤的事情。
+ 
+编程语言只是工具而已，我们应该根据具体事情的特点来选择合适的工具。也许某些人会发现，在某些领域，我们还是需要一些新的定制化工具。</p>
+<h2>Cruncher1，2013 年 3 月 2 日</h2>
+<p>我明白你的意思。对于我做的事情，（不支持）多线程不是问题。并且我只有一个我可以称之为“大代码项目”的东西，也就大概 2000 多行代码的样子。有时我努力纠正一个错误或者修改一些东西时，感受到管理 AHK 代码是一种煎熬。我会去查找那些观念（类型定义，类型安全，……），尽管我对它们还不熟悉。我已经确定学习 Python 了。它看起来是一门适合 AHK 用户接下来使用的编程语言。它相当简单，但很强大，并且比 AHK 更有名气。</p>
+<h2>WhyTYSir，2013 年 3 月 2 日</h2>
+<div class="highlight"><pre><span></span>脚本语言和更专业的编程语言开始合为一体了，性能不再是关键问题。
+</pre></div>
+
+
+<p>你不是用 C# 写出 Truecrypt 工具的作者吗？它的速度怎么样呢？所以你在之后将它修改成多线程的并且相信结果总是好的。好吧。
+Aren't you the one who made a C# Truecrypt brute-force tool? How did the speed turn out on that? So then you multi-threaded it and hoped for the best? Ok [图片上传中。。。（1）]
+ </p>
+<p>That whole 'performance is no longer a key point' has been making its rounds since people found out that a game called Doom (that was created way back when) used hardly any ASM and relied heavily on a then-modern compiler for optimization. Could it have benefited from some hand-sewn ASM? It didn't matter, since computers were so much more powerful back then their predecessors!
+ 
+The facade continues because 90% of the apps written today are heavily UI-based and do nothing more than utter BS. Even heavily resource intensive games that could use tweaking don't get it because of this fallacy. Laziness and costs are the driving factors anymore. It's not that computers are now ALL-POWERFUL, it's that people want to save a dollar and are lazy. So, if they can convince some idiots that C# or VB or AHK is as fast as ASM, C or C++, it's a benefit to them. Where the Sheppard goes, the sheep will follow.
+ 
+Please don't take this as an affront. I just see this lie perpetuated with a lot of programs I use and it irks me. Waiting for programs to open, waiting on pages to load, waiting on games to load the next part and FR in general, waiting on hash programs to finish... it drives me crazy when I know they were written with the writer's convenience in mind and not the user's.</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="Cygwin中有一个很有用的工具，cygstart，可以使用默认的程序打开任意文件，以及使用超级管理员运行命令（cygstart --action=runas）等。但msys2每个这个命令，使用超级管理员运行命令的功能几乎没有替代品。 但后来我想到既然msys2是从cygwin改的，应该也能编译出来cygstart，折腾一番后果然可以。 首先需要一个popt，PKGBUILD： # Maintainer: Gore Liu &lt;goreliu@126.com&gt; pkgname=popt pkgver=1.16 pkgrel=7 pkgdesc=&#34;A commandline option parser&#34; arch=(&#39;i686&#39; &#39;x86_64&#39;) url=&#34;http://rpm5.org&#34; license=(&#39;custom&#39;) source=(http://rpm5.org/files/${pkgname}/${pkgname …" />
+
+
+    <title>让 MSYS2 支持 cygstart - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/rang-msys2-zhi-chi-cygstart.html"
+                           rel="bookmark"
+                           title="Permalink to 让 MSYS2 支持 cygstart">
+                            让 MSYS2 支持 cygstart
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>Cygwin中有一个很有用的工具，<code>cygstart</code>，可以使用默认的程序打开任意文件，以及使用超级管理员运行命令（<code>cygstart --action=runas</code>）等。但msys2每个这个命令，使用超级管理员运行命令的功能几乎没有替代品。</p>
+<p>但后来我想到既然msys2是从cygwin改的，应该也能编译出来<code>cygstart</code>，折腾一番后果然可以。</p>
+<p>首先需要一个popt，PKGBUILD：</p>
+<div class="highlight"><pre><span></span><span class="cp"># Maintainer: Gore Liu &lt;goreliu@126.com&gt;</span>
+
+<span class="n">pkgname</span><span class="o">=</span><span class="n">popt</span>
+<span class="n">pkgver</span><span class="o">=</span><span class="mf">1.16</span>
+<span class="n">pkgrel</span><span class="o">=</span><span class="mi">7</span>
+<span class="n">pkgdesc</span><span class="o">=</span><span class="s">&quot;A commandline option parser&quot;</span>
+<span class="n">arch</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">i686</span><span class="sc">&#39; &#39;</span><span class="n">x86_64</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">url</span><span class="o">=</span><span class="s">&quot;http://rpm5.org&quot;</span>
+<span class="n">license</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">custom</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">source</span><span class="o">=</span><span class="p">(</span><span class="nl">http</span><span class="p">:</span><span class="c1">//rpm5.org/files/${pkgname}/${pkgname}-${pkgver}.tar.gz)</span>
+<span class="n">sha1sums</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">cfe94a15a2404db85858a81ff8de27c8ff3e235e</span><span class="err">&#39;</span><span class="p">)</span>
+
+<span class="n">build</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cd</span> <span class="s">&quot;${srcdir}/${pkgname}-${pkgver}&quot;</span>
+  <span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span>
+
+  <span class="k">if</span> <span class="p">[</span> <span class="err">$</span><span class="p">(</span><span class="n">grep</span> <span class="err">&#39;</span><span class="o">^</span><span class="k">static</span> <span class="kt">int</span><span class="err">$&#39;</span> <span class="n">poptconfig</span><span class="p">.</span><span class="n">c</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span><span class="p">)</span> <span class="o">-</span><span class="n">ne</span> <span class="mi">1</span> <span class="p">];</span> <span class="n">then</span>
+      <span class="n">exit</span> <span class="mi">1</span>
+  <span class="n">fi</span>
+  <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/^</span><span class="k">static</span> <span class="kt">int</span><span class="err">$</span><span class="o">/</span><span class="kt">int</span><span class="o">/</span><span class="n">g</span><span class="err">&#39;</span> <span class="n">poptconfig</span><span class="p">.</span><span class="n">c</span>
+
+  <span class="n">make</span>
+<span class="p">}</span>
+
+<span class="n">package</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cd</span> <span class="s">&quot;${srcdir}/${pkgname}-${pkgver}&quot;</span>
+  <span class="n">make</span> <span class="n">DESTDIR</span><span class="o">=</span><span class="s">&quot;${pkgdir}&quot;</span> <span class="n">install</span>
+  <span class="n">install</span> <span class="o">-</span><span class="n">Dm644</span> <span class="n">COPYING</span> <span class="s">&quot;${pkgdir}&quot;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">licenses</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">pkgname</span><span class="p">}</span><span class="o">/</span><span class="n">LICENSE</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>然后就是包含cygstart的cygutils，PKGBUILD：</p>
+<div class="highlight"><pre><span></span><span class="cp"># Maintainer: Gore Liu &lt;goreliu@126.com&gt;</span>
+
+<span class="n">pkgname</span><span class="o">=</span><span class="n">cygutils</span>
+<span class="n">pkgver</span><span class="o">=</span><span class="mf">1.4.14</span>
+<span class="n">pkgrel</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">pkgdesc</span><span class="o">=</span><span class="s">&quot;A collection of simple cygwin utilities&quot;</span>
+<span class="n">arch</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">i686</span><span class="sc">&#39; &#39;</span><span class="n">x86_64</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">url</span><span class="o">=</span><span class="s">&quot;http://cygutils.fruitbat.org/cygutils-package/index.html&quot;</span>
+<span class="n">license</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">custom</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">depends</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">popt</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">source</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;http://mirror.bit.edu.cn/cygwin/x86_64/release/cygutils/${pkgname}-${pkgver}-1-src.tar.bz2&quot;</span><span class="p">)</span>
+<span class="n">sha1sums</span><span class="o">=</span><span class="p">(</span><span class="err">&#39;</span><span class="n">f9f5ae35ba61aa6efccf9581c2b019c26ea6671a</span><span class="err">&#39;</span><span class="p">)</span>
+
+<span class="n">build</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cd</span> <span class="s">&quot;${srcdir}&quot;</span>
+  <span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="err">$</span><span class="p">{</span><span class="n">pkgname</span><span class="p">}</span><span class="o">-</span><span class="err">$</span><span class="p">{</span><span class="n">pkgver</span><span class="p">}.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span>
+  <span class="n">cd</span> <span class="err">$</span><span class="p">{</span><span class="n">pkgname</span><span class="p">}</span><span class="o">-</span><span class="err">$</span><span class="p">{</span><span class="n">pkgver</span><span class="p">}</span>
+  <span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span>
+  <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/</span><span class="n">stricmp</span><span class="o">/</span><span class="n">strcasecmp</span><span class="o">/</span><span class="n">g</span><span class="err">&#39;</span> <span class="n">src</span><span class="o">/</span><span class="n">lpr</span><span class="o">/</span><span class="n">Printer</span><span class="p">.</span><span class="n">cc</span>
+
+  <span class="n">make</span>
+<span class="p">}</span>
+
+<span class="n">package</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cd</span> <span class="s">&quot;${srcdir}/${pkgname}-${pkgver}&quot;</span>
+  <span class="n">make</span> <span class="n">DESTDIR</span><span class="o">=</span><span class="s">&quot;${pkgdir}&quot;</span> <span class="n">install</span>
+  <span class="n">install</span> <span class="o">-</span><span class="n">Dm644</span> <span class="n">COPYING</span> <span class="s">&quot;${pkgdir}&quot;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">licenses</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">pkgname</span><span class="p">}</span><span class="o">/</span><span class="n">LICENSE</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="err">`</span><span class="n">find</span> <span class="o">-</span><span class="n">name</span> <span class="err">&#39;</span><span class="o">*</span><span class="p">.</span><span class="n">exe</span><span class="err">&#39;`</span><span class="p">;</span> <span class="k">do</span>
+      <span class="n">cp</span> <span class="err">$</span><span class="n">i</span> <span class="s">&quot;${pkgdir}&quot;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span>
+  <span class="n">done</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>依次保存为PKGBUILD文件，运行<code>makepkg</code>，然后使用<code>pacman auto -U *.pkg.*</code>就可以了。</p>
+<p>更多的msys2包，https://github.com/goreliu/my-MSYS2-Packages。官方的repo对于msys2分支的PKGBUILD要求很苛刻，基本不收，之后自己维护了。如果有朋友有其他的PKGBUILD，可以一起维护。</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

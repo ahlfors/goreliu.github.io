@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="WSL 从最初功能不全 bug 遍地都是，到现在除了少数几个比较顽固的 bug 外，基本足以正常使用了。但自带终端模拟器的体验依然非常糟糕，而且在可以预期的未来都不会有太大的长进了。我是从去年 8 月开始开发 wsl-terminal（中文页面）的，期间因为想不到可以添加什么功能而搁置了比较长时间。最近心血来潮，添加了很多实用功能，用户体验也会上升很多。 希望有在使用的朋友可以多反馈下意见建议，如果之前没有尝试过，也可以体验一下，软件是一个 1.6 MB 的压缩包，解压后即可使用，不会往系统中写入任何东西（如果想添加到开始菜单或者右键菜单，可以使用 tools 中的工具）。 介绍 用于 Windows Subsystem for Linux (WSL) 的终端模拟器，基于 mintty 和 wslbridge。 截图 查看更多截图。 用法 …" />
+
+
+    <title>使用 wsl terminal 更好地体验 Win 10 WSL 终端环境 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/shi-yong-wsl-terminal-geng-hao-di-ti-yan-win-10-wsl-zhong-duan-huan-jing.html"
+                           rel="bookmark"
+                           title="Permalink to 使用 wsl terminal 更好地体验 Win 10 WSL 终端环境">
+                            使用 wsl terminal 更好地体验 Win 10 WSL 终端环境
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>WSL 从最初功能不全 bug 遍地都是，到现在除了少数几个比较顽固的 bug 外，基本足以正常使用了。但自带终端模拟器的体验依然非常糟糕，而且在可以预期的未来都不会有太大的长进了。我是从去年 8 月开始开发 <a href="https://goreliu.github.io/wsl-terminal/">wsl-terminal</a>（<a href="https://goreliu.github.io/wsl-terminal/README.zh_CN.html">中文页面</a>）的，期间因为想不到可以添加什么功能而搁置了比较长时间。最近心血来潮，添加了很多实用功能，用户体验也会上升很多。</p>
+<p>希望有在使用的朋友可以多反馈下意见建议，如果之前没有尝试过，也可以体验一下，软件是一个 1.6 MB 的压缩包，解压后即可使用，不会往系统中写入任何东西（如果想添加到开始菜单或者右键菜单，可以使用 tools 中的工具）。</p>
+<h3>介绍</h3>
+<p>用于 Windows Subsystem for Linux (WSL) 的终端模拟器，基于 <a href="http://mintty.github.io/">mintty</a> 和 <a href="https://github.com/rprichard/wslbridge">wslbridge</a>。</p>
+<h3>截图</h3>
+<p><img alt="screenshot" src="/images/030.png"></p>
+<p>查看<a href="https://github.com/goreliu/wsl-terminal/wiki/Screenshots">更多截图</a>。</p>
+<h3>用法</h3>
+<ol>
+<li>
+<p>从<a href="https://github.com/goreliu/wsl-terminal/releases">这里</a>下载最新版本并解压。</p>
+</li>
+<li>
+<p>运行 <code>open-wsl.exe</code> 可以在当前目录打开一个 WSL 终端模拟器（wsl-terminal 需要放置在本地的 NTFS 分区上，<a href="https://github.com/rprichard/wslbridge#building-wslbridge">原因</a>）。</p>
+</li>
+<li>
+<p>运行 <code>tools/1-add-open-wsl-terminal-here-menu.js</code> (<a href="https://github.com/goreliu/wsl-terminal/blob/master/README.zh_CN.md#工具">帮助</a>) 来添加一个 <code>Open wsl-terminal Here</code> 右键菜单到资源管理器上 (运行 <code>tools/1-remove-open-wsl-terminal-here-menu.js</code> 可以将其删除）。 如果你使用 Total Commander, 可以参考 <a href="https://github.com/goreliu/wsl-terminal/wiki/Use-wsl-terminal-with-Total-Commander">在 Total Commander 中使用 wsl-terminal</a> 。</p>
+</li>
+<li>
+<p><code>run-wsl-file.exe</code> 可以在 wsl-terminal 里运行任何 <code>.sh</code> （以及任何其他的可执行文件，比如 <code>.py</code> <code>.pl</code> 文件) 脚本文件，你可以在文件打开方式里设置使用它来打开文件。</p>
+</li>
+<li>
+<p><code>vim.exe</code> 可以使用 WSL 中的 vim 打开任何文件 (在 wsl-terminal 中)，支持在打开方式中配置。如果你使用其他编辑器，可以把 <code>vim.exe</code> 重命名成  <code>emacs.exe</code> <code>nvim.exe</code>  <code>nano.exe</code> 等等，会调用对应的编辑器打开。</p>
+</li>
+</ol>
+<h3>快捷键</h3>
+<p><code>Alt + Enter</code>: 全屏</p>
+<p><code>Alt + F2</code>: 新建窗口</p>
+<p><code>Alt + F3</code>: 搜索文本</p>
+<p><code>Ctrl + [Shift] + Tab</code>: 切换窗口</p>
+<p><code>Ctrl + =+/-/0</code>: 缩放</p>
+<p><code>Ctrl + Click</code>: 打开光标处的文件、目录名或者网址</p>
+<h3>命令行参数</h3>
+<h4>open-wsl</h4>
+<div class="highlight"><pre><span></span><span class="err">用法</span><span class="o">:</span> <span class="n">open</span><span class="o">-</span><span class="n">wsl</span> <span class="o">[</span><span class="err">选项</span><span class="o">]...</span>
+  <span class="o">-</span><span class="n">a</span><span class="o">:</span> <span class="err">激活在运行的</span> <span class="n">wsl</span><span class="o">-</span><span class="n">terminal</span> <span class="err">窗口。</span>
+      <span class="err">如果</span> <span class="n">use_tmux</span><span class="o">=</span><span class="mi">1</span><span class="err">，会</span> <span class="n">attach</span> <span class="err">到正在运行的</span> <span class="n">tmux</span> <span class="err">会话上。</span>
+  <span class="o">-</span><span class="n">l</span><span class="o">:</span> <span class="err">运行一个</span> <span class="n">login</span> <span class="n">shell</span><span class="err">（如果</span> <span class="n">use_tmux</span><span class="o">=</span><span class="mi">1</span> <span class="err">则失效）。</span>
+  <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="err">运行</span> <span class="n">command</span> <span class="err">中的命令。</span>
+  <span class="o">-</span><span class="n">C</span> <span class="n">dir</span><span class="o">:</span> <span class="err">进入到</span> <span class="n">dir</span> <span class="err">目录中，</span><span class="n">WSL</span> <span class="err">目录（例如</span> <span class="sr">/home/</span><span class="n">username</span><span class="err">）。</span>
+  <span class="o">-</span><span class="n">W</span> <span class="n">dir</span><span class="o">:</span> <span class="err">进入到</span> <span class="n">dir</span> <span class="err">目录中，</span><span class="n">Windows</span> <span class="err">目录（例如</span> <span class="n">c</span><span class="o">:\</span><span class="n">Users</span><span class="o">\</span><span class="n">username</span><span class="o">)</span><span class="err">。</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">distro</span><span class="o">:</span> <span class="err">切换发行版。</span>
+  <span class="o">-</span><span class="n">b</span> <span class="s2">&quot;options&quot;</span><span class="o">:</span> <span class="err">传递额外的选项给</span> <span class="n">wslbridge</span><span class="err">。</span>
+  <span class="o">-</span><span class="n">B</span> <span class="s2">&quot;options&quot;</span><span class="o">:</span> <span class="err">传递额外的选项给</span> <span class="n">mintty</span><span class="err">。</span>
+  <span class="o">-</span><span class="n">h</span><span class="o">:</span> <span class="err">显示帮助信息。</span>
+</pre></div>
+
+
+<p><code>-B</code> 和 <code>-b</code> 后可以添加的选项，请参考 <a href="https://github.com/goreliu/wsl-terminal/wiki/mintty-params">mintty 参数</a> 和 <a href="https://github.com/rprichard/wslbridge#usage">wslbridge 参数</a>。</p>
+<h4>cmdtool（在 WSL 中运行）</h4>
+<div class="highlight"><pre><span></span><span class="err">用法</span><span class="o">:</span> <span class="n">cmdtool</span> <span class="o">[</span><span class="err">选项</span><span class="o">]...</span>
+  <span class="n">wcmd</span><span class="o">:</span> <span class="err">使用</span> <span class="n">cmd</span><span class="o">.</span><span class="na">exe</span> <span class="o">/</span><span class="n">c</span> <span class="err">运行</span> <span class="n">Windows</span> <span class="err">程序。</span>
+  <span class="n">wstart</span><span class="o">:</span> <span class="err">使用</span> <span class="n">cmd</span><span class="o">.</span><span class="na">exe</span> <span class="o">/</span><span class="n">c</span> <span class="n">start</span> <span class="err">运行</span> <span class="n">Windows</span> <span class="err">程序。</span>
+  <span class="n">update</span><span class="o">:</span> <span class="err">检查更新，如果有更新可以直接升级。</span>
+  <span class="n">killall</span><span class="o">:</span> <span class="err">杀死所有的</span> <span class="n">WSL</span> <span class="err">进程。</span>
+  <span class="n">install</span> <span class="n">cbwin</span><span class="o">:</span> <span class="err">安装</span> <span class="n">cbwin</span><span class="err">。</span>
+  <span class="n">install</span> <span class="n">dash</span><span class="o">:</span> <span class="err">安装</span> <span class="n">Cygwin</span> <span class="err">中的</span> <span class="n">dash</span><span class="err">（用于调试）。</span>
+  <span class="n">install</span> <span class="n">busybox</span><span class="o">:</span> <span class="err">安装</span> <span class="n">Cygwin</span> <span class="err">中的</span> <span class="n">busybox</span><span class="err">（用于调试）。</span>
+</pre></div>
+
+
+<h3>工具</h3>
+<p><code>tools</code> 目录下的工具：</p>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-add-open-wsl-terminal-here-menu.js</td>
+<td>添加 <code>Open wsl-terminal Here</code> 右键菜单到资源管理器上。</td>
+</tr>
+<tr>
+<td>1-remove-open-wsl-terminal-here-menu.js</td>
+<td>移除 <code>Open wsl-terminal Here</code> 右键菜单。</td>
+</tr>
+<tr>
+<td>2-add-wsl-terminal-dir-to-path.js</td>
+<td>将 <code>wsl-terminal</code> 目录添加到 <code>Path</code> 环境变量里。</td>
+</tr>
+<tr>
+<td>2-remove-wsl-terminal-dir-from-path.js</td>
+<td>从 <code>Path</code> 环境变量中移除 <code>wsl-terminal</code> 目录。</td>
+</tr>
+<tr>
+<td>3-write-distro-guids-to-config-file.js</td>
+<td>将所有发行版的 guid 写入到配置文件 <code>etc/wsl-terminal.conf</code> 中。</td>
+</tr>
+<tr>
+<td>4-create-start-menu-shortcut.js</td>
+<td>创建一个开始菜单快捷方式，指向 <code>open-wsl -C ~</code>。</td>
+</tr>
+<tr>
+<td>4-create-start-menu-shortcut-login-shell.js</td>
+<td>创建一个开始菜单快捷方式，指向 <code>open-wsl -l</code>。</td>
+</tr>
+<tr>
+<td>4-remove-all-start-menu-shortcuts.js</td>
+<td>移除所有 wsl-terminal 的开始菜单快捷方式。</td>
+</tr>
+</tbody>
+</table>
+<p>双击 <code>.js</code> 文件即可运行。如果 <code>.js</code> 文件被某个编辑器关联上了，可以修改打开方式为 <code>Microsoft (R) Windows Based Script Host</code>，或者在 <code>tools</code> 目录运行一个 <code>cmd.exe</code>，然后用 <code>wscript xxx.js</code> 运行对应文件。</p>
+<h3>配置文件</h3>
+<p><code>etc/wsl-terminal.conf</code> 是 wsl-terminal 的配置文件：</p>
+<div class="highlight"><pre><span></span><span class="k">[config]</span>
+<span class="na">title</span><span class="o">=</span><span class="s">&quot;窗口标题&quot;</span>
+<span class="na">shell</span><span class="o">=</span><span class="s">bash</span>
+<span class="na">use_tmux</span><span class="o">=</span><span class="s">0</span>
+<span class="c1">;icon=</span>
+<span class="c1">;distro_guid=</span>
+</pre></div>
+
+
+<p><code>etc/themes/</code> 目录下的是主题文件，<a href="https://github.com/goreliu/wsl-terminal/wiki/Use-themes">使用主题</a>。</p>
+<p><code>etc/minttyrc</code> 是 mintty 的配置文件， <a href="https://github.com/mintty/mintty/wiki/Tips">mintty 帮助</a>。</p>
+<h3>升级</h3>
+<p>在 <code>wsl-terminal</code> 里打开 <code>open-wsl.exe</code>，然后运行 <code>./cmdtool update</code>  可以检查 wsl-terminal 的最新版本然后升级。如果下载速度过慢，可以先使用其他方法从<a href="https://github.com/goreliu/wsl-terminal/releases">发布页面</a>下载 <code>wsl-terminal-v{version}.7z</code> 文件，然后将其放入到 <code>wsl-terminal</code> 目录，然后运行 <code>./cmdtool update</code>。</p>
+<p>该工具依赖 <code>wget</code> 和 <code>7z</code> 命令（安装方法。Ubuntu: <code>apt install wget p7zip-full</code>, Archlinux: <code>pacman -S wget p7zip</code>）。</p>
+<p>升级过程不会覆盖配置文件，<code>etc/wsl-terminal.conf</code> 和 <code>etc/minttyrc</code> 会被放置到 <code>etc/wsl-terminal.conf.pacnew</code> 和 <code>etc/minttyrc.pacnew</code>。升级后 <code>bin</code> 目录会残余一些 <code>.bak</code> 文件，因为这些文件还在运行，不能被删除。下一次升级时，会将之前的 <code>.bak</code> 文件全部删除，你也可以等那些进程退出后手删除那些文件。</p>
+<h3>使用 tmux</h3>
+<ol>
+<li>
+<p>在 WSL 里安装 tmux。</p>
+</li>
+<li>
+<p>在 <code>etc/wsl-terminal.conf</code> 中设置 <code>use_tmux=1</code>。如果版本号低于 <code>0.8.1</code>，还需要添加 <code>attach_tmux_locally=1</code> 。</p>
+</li>
+<li>
+<p>添加如下代码到 <code>~/.bashrc</code>（如果配置的是 <code>shell=bash</code>）或者 <code>~/.zshrc</code>（如果配置的是 <code>shell=zsh</code>）：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span>[[ -z &quot;$TMUX&quot; &amp;&amp; -n &quot;$USE_TMUX&quot; ]] &amp;&amp; {
+    [[ -n &quot;$ATTACH_ONLY&quot; ]] &amp;&amp; {
+        tmux a 2&gt;/dev/null || {
+            cd &amp;&amp; exec tmux
+        }
+        exit
+    }
+
+    tmux new-window -c &quot;$PWD&quot; 2&gt;/dev/null &amp;&amp; exec tmux a
+    exec tmux
+}
+</pre></div>
+
+
+<p>然后 <code>open-wsl</code> 就会使用 tmux 了。</p>
+<h3>切换发行版</h3>
+<p>使用 <code>open-wsl -d distro</code> （在 <code>cmd.exe</code> 里运行）来切换发行版：</p>
+<div class="highlight"><pre><span></span># 列出所有发行版
+&gt; wslconfig /l
+Legacy (默认)
+Ubuntu
+
+# 使用 Ubuntu（会运行 wslconfig /s Ubuntu 然后打开 wsl-terminal）
+&gt; open-wsl -d Ubuntu
+
+# Ubuntu 已经是默认的发行版了
+&gt; wslconfig /l
+Ubuntu (默认)
+Legacy
+</pre></div>
+
+
+<p>如果你不想修改默认的发行版，可以在 <code>etc/wsl-terminal.conf</code> 里设置 <code>distro_guid</code>：</p>
+<p>运行 <code>tools/3-write-distro-guids-to-config-file.js</code>（<a href="https://github.com/goreliu/wsl-terminal/blob/master/README.zh_CN.md#工具">帮助</a>），然后会有窗口弹出结果：</p>
+<div class="highlight"><pre><span></span>result has been written to ..\etc\wsl-terminal.conf:
+
+; Legacy
+;distro_guid={12345678-1234-5678-0123-456789abcdef}
+
+; Ubuntu
+;distro_guid={47a89313-4300-4678-96ae-e53c41a79e03}
+
+remove the ; before distro_guid to use the distro.
+</pre></div>
+
+
+<p>可以去掉 distro_guid 前边的 ; 来使用对应的发行版。</p>
+<p>如果你想通过命令行将 distro_guid 传递给 <code>open-wsl</code>：</p>
+<div class="highlight"><pre><span></span># 将 distro guid 传递给 wslbridge
+&gt; open-wsl -b &quot;--distro-guid {47a89313-4300-4678-96ae-e53c41a79e03}&quot;
+</pre></div>
+
+
+<h3>链接</h3>
+<p><a href="https://github.com/goreliu/wsl-terminal/wiki/FAQ">常见问题</a></p>
+<p><a href="https://github.com/goreliu/wsl-terminal/wiki/TODO">开发计划</a></p>
+<h3>编译</h3>
+<p>确保已经在 WSL 里安装了这些 <code>wget</code> <code>tar</code> <code>xz</code> <code>gzip</code> <code>p7zip</code> (安装方法。Ubuntu: <code>apt install wget tar xz-utils gzip p7zip-full</code>, Archlinux: <code>pacman -S wget tar xz gzip p7zip</code>）。</p>
+<p>运行 <code>build.bat</code>。</p>
+<h3>许可</h3>
+<p>MIT</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

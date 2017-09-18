@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="因为之前对人工智能相关问题有些兴趣，写了两篇文章： 关于人工智能的一点想法 最可怕的并不是强人工智能 在写第一篇文章时，我对人工智能总体上是比较乐观的，而写第二篇文章时，因为想到了一些之前没考虑到的问题，变得比较悲观。但当时我一直在想这样一个问题，机器是否可能比人类更聪明？因为没想清楚，我绕过这个问题，文章写得也比较混乱。 这几天又想了下这个问题，有了一些新进展。 当一个人和一台机器同时解决一个问题时，如果机器能在很短时间解决，而人在可接受的时间内都解决不了，那是否就解决这个问题而言，机器比人聪明呢？我们知道就现在的电脑而言，在解决很多数学问题上就是这样的，比如解偏微分方程，或者只是大整数的因式分解。但我们恐怕不会因此认为电脑比人聪明，更不会因此就害怕电脑。 当有人说他担心将来的有一天机器比人聪明时，他想表达什么呢？有些人害怕和自己聪明的人共处，因为害怕被算计。那是不是也是害怕被机器算计，但这前提是机器想算计人。但就弱人工智能而言，机器的目的和行为是人决定的，所以这是不可能的。就弱人工智能而言，不存在机器和人谁更聪明的问题。就这个问题，我之前犯了想当然的错误。其实想到这里，弱人工智能问题就完全没有神秘面纱了。 那么是否意味着发展弱人工智能就没有什么风险了呢？我想也不能这么说。 我们知道和人类自身相比，现在的机器在某些事情上是非常擅长的，而在其他事情上并不擅长甚至完全无能为力。也许将来有一天，看起来机器在各个方面都完全超越了人类，但即使这似乎并没有强人工智能实现出来那样遥远无期 …" />
+
+
+    <title>关于机器是否可能比人类更聪明的若干胡思乱想 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/guan-yu-ji-qi-shi-fou-ke-neng-bi-ren-lei-geng-cong-ming-de-ruo-gan-hu-si-luan-xiang.html"
+                           rel="bookmark"
+                           title="Permalink to 关于机器是否可能比人类更聪明的若干胡思乱想">
+                            关于机器是否可能比人类更聪明的若干胡思乱想
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/sui-bi.html">随笔</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>因为之前对人工智能相关问题有些兴趣，写了两篇文章：
+<a href="http://www.jianshu.com/p/8b0fd3ca1caa">关于人工智能的一点想法</a>
+<a href="http://www.jianshu.com/p/e8ee02a29674">最可怕的并不是强人工智能</a></p>
+<p>在写第一篇文章时，我对人工智能总体上是比较乐观的，而写第二篇文章时，因为想到了一些之前没考虑到的问题，变得比较悲观。但当时我一直在想这样一个问题，机器是否可能比人类更聪明？因为没想清楚，我绕过这个问题，文章写得也比较混乱。</p>
+<p>这几天又想了下这个问题，有了一些新进展。</p>
+<p>当一个人和一台机器同时解决一个问题时，如果机器能在很短时间解决，而人在可接受的时间内都解决不了，那是否就解决这个问题而言，机器比人聪明呢？我们知道就现在的电脑而言，在解决很多数学问题上就是这样的，比如解偏微分方程，或者只是大整数的因式分解。但我们恐怕不会因此认为电脑比人聪明，更不会因此就害怕电脑。</p>
+<p>当有人说他担心将来的有一天机器比人聪明时，他想表达什么呢？有些人害怕和自己聪明的人共处，因为害怕被算计。那是不是也是害怕被机器算计，但这前提是机器想算计人。但就弱人工智能而言，机器的目的和行为是人决定的，所以这是不可能的。就弱人工智能而言，不存在机器和人谁更聪明的问题。就这个问题，我之前犯了想当然的错误。其实想到这里，弱人工智能问题就完全没有神秘面纱了。</p>
+<p>那么是否意味着发展弱人工智能就没有什么风险了呢？我想也不能这么说。</p>
+<p>我们知道和人类自身相比，现在的机器在某些事情上是非常擅长的，而在其他事情上并不擅长甚至完全无能为力。也许将来有一天，看起来机器在各个方面都完全超越了人类，但即使这似乎并没有强人工智能实现出来那样遥远无期，但至少在可预期的未来是没有希望的。而在这期间的较长时间，机器一直是“偏科”的。</p>
+<p>或者我们可以换一个角度来看这个问题。每当机器在做一件事或者在解决某一个领域问题的能力超过人类自身时，人类（以机器作为工具）的这方面能力就得到了一个很大的提升。但这样的发展并不均衡，也许在某些方面飞速发展，而在其他方面原地踏步。而这是否会导致人类在处理一些重大的事情上更容易失误呢？</p>
+<p>这个问题我还没有想清楚。（待续）</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

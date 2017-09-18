@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="问题 有Q1、Q2、……、Qn n个队列，每个队列有一个权值W1、W2、……、Wn，需要每次从其中一个队列取出一个元素，使得从不同队列取出的元素数量比例服从权值的比例。 解释 这正是网络流量调度场景中的“带权轮询调度”（Weighted Round-Robin Scheduling，WRR），有现成的算法可用。 为了简单起见，先考虑最简单的情况，令 W1 = W2 = ... = Wn，那么“带权轮询调度”退化成“轮询调度”（Round-Robin Scheduling，RR），RR实现很简单，然后考虑权值不同的情况。 实现（python代码） RR # count N = 3 # Round-Robin Scheduling def rr_select(): last = N - 1 while True: current = (last …" />
+
+
+    <title>带权轮询算法 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/dai-quan-lun-xun-suan-fa.html"
+                           rel="bookmark"
+                           title="Permalink to 带权轮询算法">
+                            带权轮询算法
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h3>问题</h3>
+<p>有Q1、Q2、……、Qn n个队列，每个队列有一个权值W1、W2、……、Wn，需要每次从其中一个队列取出一个元素，使得从不同队列取出的元素数量比例服从权值的比例。</p>
+<h3>解释</h3>
+<p>这正是网络流量调度场景中的“带权轮询调度”（Weighted Round-Robin Scheduling，WRR），有现成的算法可用。</p>
+<p>为了简单起见，先考虑最简单的情况，令 W1 = W2 = ... = Wn，那么“带权轮询调度”退化成“轮询调度”（Round-Robin Scheduling，RR），RR实现很简单，然后考虑权值不同的情况。</p>
+<h3>实现（python代码）</h3>
+<h4>RR</h4>
+<div class="highlight"><pre><span></span># count
+N = 3
+
+# Round-Robin Scheduling
+def rr_select():
+    last = N - 1
+    while True:
+        current = (last + 1) % N
+        last = current
+        yield current
+
+rr_test = rr_select()
+for i in range(1000):
+    print(rr_test.__next__())
+</pre></div>
+
+
+<p>N是队列的个数，0到N-1数字代表这N个队列。</p>
+<p>RR会依次从每个队列取出元素，很简单无需过多叙述。</p>
+<h4>WRR</h4>
+<div class="highlight"><pre><span></span># count
+N = 3
+
+weight = (60, 30, 10)
+
+# 最大公约数
+def gcd(nums):
+    m = nums[0]
+    for n in nums[1:]:
+        while n != 0:
+            m, n = n, m % n
+    return m
+
+# Weighted Round-Robin Scheduling
+def wrr_select():
+    current = N - 1
+    current_weight = 0
+
+    while True:
+        current = (current + 1) % N
+        if current == 0:
+            current_weight -= gcd(weight)
+            if current_weight &lt;= 0:
+                current_weight = max(weight)
+        if weight[current] &gt;= current_weight:
+            yield current
+
+wrr_test = wrr_select()
+for i in range(1000):
+    print(wrr_test.__next__())
+</pre></div>
+
+
+<p>这个算法需要解释一下。</p>
+<p>先看一下取前10个元素的结果：</p>
+<div class="highlight"><pre><span></span>current_weight     从哪些队列取出了元素
+60                 0
+50                 0
+40                 0
+30                 0 1
+20                 0 1
+10                 0 1 2
+</pre></div>
+
+
+<p>也就是每次<code>for i in (0, 1, 2)</code>的小周期内，当<code>current_weight &gt; weight[i]</code>时，就把<code>i</code>选出来。当<code>current_weight</code>等于<code>0</code>了，就再从头开始，这算一个大周期。一个大周期包含<code>max(weight)/gcd(weight)</code>个小周期。</p>
+<p>那如何证明这样取是符合权值比例的？</p>
+<p>可以看到每个小周期中，都是要从权值最大的队列里拿走一个元素的，可以看作拿权值最大的那个作为基准，然后权值较小的直接拿它对比。那仅看权值为10的便可，10是60的1/6，把60分6分，只有1份是应该给10的，所以60知道降到10才满足10的条件。权值30的同理。</p>
+<p>其实max(weight)和gcd(weight)都可以选择别的，但选它们两个可以满足最细粒度的平均，即每取出任意10个连续的中间结果，就必然服从权值比例，可以认为是最优的。</p>
+<h3>随机性考虑</h3>
+<p>WRR的运行结果是固定的，如果需要考虑随机性的话，需要再做一些额外工作。简单的话可以先对队列的顺序做随机，但这样实际的顺序还是固定的。可以按实际需要频繁暂存一定（随机）数量的结果，再随机处理后依次输出。</p>
+<h3>参考</h3>
+<ul>
+<li><a href="http://blog.163.com/s_u/blog/static/1330836720105233102894/">轮询调度算法(Round-Robin Scheduling)</a></li>
+<li><a href="http://blog.163.com/tianle_han/blog/static/661782620119165645590/">带权值轮询算法</a></li>
+<li><a href="http://www.xuebuyuan.com/126515.html">IPVS的调度算法</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Weighted_round_robin">Weighted round robin</a></li>
+</ul>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

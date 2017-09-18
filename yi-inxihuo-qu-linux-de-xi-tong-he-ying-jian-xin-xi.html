@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="我们已经展示了一些不同的应用程序和方法来获取Linux的系统和硬件信息。在这一系列里，我们将看到如何使用inxi来获取这些详情信息。在论坛技术支持中，它可以作为调试工具，迅速确定用户的系统配置和硬件信息。 Inxi是一个可以获取完整的系统和硬件详情信息的命令行工具，内容包括： 硬件 CPU 磁盘驱动器 Xorg 桌面环境 内核 GCC版本 进程 内存占用 和其他有用的信息 安装方法 Inxi在多数现代GNU/Linux操作系统的默认软件仓库中。所以我们可以简单地运行下列命令安装。 在基于Debian的发行版： sudo apt-get install inxi 在Fedora： sudo yum install inxi 在基于RHEL的发行版： 安装EPEL软件仓库： sudo yum install epel-release 然后使用如下命令安装inxi： sudo yum install inxi 使用方法 在终端运行如下命令可以获取系统的概况信息 …" />
+
+
+    <title>[译] Inxi：获取 Linux 的系统和硬件信息 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">20</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h1>
+                        <a href="/yi-inxihuo-qu-linux-de-xi-tong-he-ying-jian-xin-xi.html"
+                           rel="bookmark"
+                           title="Permalink to [译] Inxi：获取 Linux 的系统和硬件信息">
+                            [译] Inxi：获取 Linux 的系统和硬件信息
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-18T20:29:00+08:00"> Mon 18 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <p>我们已经展示了一些不同的<a href="https://linux.cn/article-1947-1.html">应用程序</a>和方法来获取Linux的系统和硬件信息。在这一系列里，我们将看到如何使用<strong>inxi</strong>来获取这些详情信息。在论坛技术支持中，它可以作为调试工具，迅速确定用户的系统配置和硬件信息。</p>
+<p><strong>Inxi</strong>是一个可以获取完整的系统和硬件详情信息的命令行工具，内容包括：</p>
+<ul>
+<li>硬件</li>
+<li>CPU</li>
+<li>磁盘驱动器</li>
+<li>Xorg</li>
+<li>桌面环境</li>
+<li>内核</li>
+<li>GCC版本</li>
+<li>进程</li>
+<li>内存占用</li>
+<li>和其他有用的信息</li>
+</ul>
+<h3>安装方法</h3>
+<p>Inxi在多数现代GNU/Linux操作系统的默认软件仓库中。所以我们可以简单地运行下列命令安装。</p>
+<p><strong>在基于Debian的发行版：</strong></p>
+<div class="highlight"><pre><span></span>sudo apt-get install inxi
+</pre></div>
+
+
+<p><strong>在Fedora：</strong></p>
+<div class="highlight"><pre><span></span>sudo yum install inxi
+</pre></div>
+
+
+<p><strong>在基于RHEL的发行版：</strong></p>
+<p>安装EPEL软件仓库：</p>
+<div class="highlight"><pre><span></span>sudo yum install epel-release
+</pre></div>
+
+
+<p>然后使用如下命令安装inxi：</p>
+<div class="highlight"><pre><span></span>sudo yum install inxi
+</pre></div>
+
+
+<h3>使用方法</h3>
+<p>在终端运行如下命令可以获取系统的概况信息。</p>
+<div class="highlight"><pre><span></span>inxi
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span>CPU~Dual core Intel Core i3-2350M CPU (-HT-MCP-) clocked at Min:800.000Mhz Max:1200.000Mhz Kernel~3.13.0-45-generic x86_64 Up~6:41 Mem~1537.7/3861.3MB HDD~500.1GB(52.5% used) Procs~183 Client~Shell inxi~1.9.17
+</pre></div>
+
+
+<p>当然，我们可以获取一个特定硬件的详情信息。比如获取<strong>声音/音频硬件详情信息</strong>，可以运行如下命令：</p>
+<div class="highlight"><pre><span></span>inxi -A
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="n">Audio</span><span class="o">:</span>     <span class="n">Card</span><span class="o">:</span> <span class="n">Intel</span> <span class="mi">6</span> <span class="n">Series</span><span class="o">/</span><span class="n">C200</span> <span class="n">Series</span> <span class="n">Family</span> <span class="n">High</span> <span class="n">Definition</span> <span class="n">Audio</span> <span class="n">Controller</span> <span class="n">driver</span><span class="o">:</span> <span class="n">snd_hda_intel</span> 
+           <span class="n">Sound</span><span class="o">:</span> <span class="n">Advanced</span> <span class="n">Linux</span> <span class="n">Sound</span> <span class="n">Architecture</span> <span class="n">ver</span><span class="o">:</span> <span class="n">k3</span><span class="o">.</span><span class="mf">13.0</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="n">generic</span>
+</pre></div>
+
+
+<p>很酷是吧？</p>
+<p>同样的，你可以获取<strong>显卡</strong>的详情信息。</p>
+<div class="highlight"><pre><span></span>inxi -G
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="nl">Graphics</span><span class="p">:</span>  <span class="nl">Card</span><span class="p">:</span> <span class="n">Intel</span> <span class="mi">2</span><span class="n">nd</span> <span class="n">Generation</span> <span class="n">Core</span> <span class="n">Processor</span> <span class="n">Family</span> <span class="n">Integrated</span> <span class="n">Graphics</span> <span class="n">Controller</span> 
+           <span class="n">X</span><span class="p">.</span><span class="nl">Org</span><span class="p">:</span> <span class="mf">1.15.1</span> <span class="nl">drivers</span><span class="p">:</span> <span class="n">intel</span> <span class="p">(</span><span class="nl">unloaded</span><span class="p">:</span> <span class="n">fbdev</span><span class="p">,</span><span class="n">vesa</span><span class="p">)</span> <span class="nl">Resolution</span><span class="p">:</span> <span class="mi">1366</span><span class="n">x768</span><span class="mf">@60.0</span><span class="n">hz</span> 
+           <span class="n">GLX</span> <span class="nl">Renderer</span><span class="p">:</span> <span class="n">Mesa</span> <span class="n">DRI</span> <span class="n">Intel</span> <span class="n">Sandybridge</span> <span class="n">Mobile</span> <span class="n">GLX</span> <span class="nl">Version</span><span class="p">:</span> <span class="mf">3.0</span> <span class="n">Mesa</span> <span class="mf">10.3.0</span>
+</pre></div>
+
+
+<p>硬盘信息呢？也是可以的。运行如下命令来获取完整的<strong>硬盘</strong>信息。</p>
+<div class="highlight"><pre><span></span>inxi -D
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="n">Drives</span><span class="o">:</span>    <span class="n">HDD</span> <span class="n">Total</span> <span class="n">Size</span><span class="o">:</span> <span class="mf">500.1</span><span class="n">GB</span> <span class="o">(</span><span class="mf">52.5</span><span class="o">%</span> <span class="n">used</span><span class="o">)</span> <span class="mi">1</span><span class="o">:</span> <span class="n">id</span><span class="o">:</span> <span class="sr">/dev/s</span><span class="n">da</span> <span class="n">model</span><span class="o">:</span> <span class="n">ST9601325BD</span> <span class="n">size</span><span class="o">:</span> <span class="mf">500.1</span><span class="n">GB</span>
+</pre></div>
+
+
+<p>显示Bios和主板详情信息：</p>
+<div class="highlight"><pre><span></span>inxi -M
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="n">Machine</span><span class="o">:</span>   <span class="n">System</span><span class="o">:</span> <span class="n">Dell</span> <span class="o">(</span><span class="n">portable</span><span class="o">)</span> <span class="n">product</span><span class="o">:</span> <span class="n">Inspiron</span> <span class="n">N5050</span>
+           <span class="n">Mobo</span><span class="o">:</span> <span class="n">Dell</span> <span class="n">model</span><span class="o">:</span> <span class="mi">01</span><span class="n">HXXJ</span> <span class="n">version</span><span class="o">:</span> <span class="n">A05</span> <span class="n">Bios</span><span class="o">:</span> <span class="n">Dell</span> <span class="n">version</span><span class="o">:</span> <span class="n">A05</span> <span class="n">date</span><span class="o">:</span> <span class="mi">08</span><span class="sr">/03/</span><span class="mi">2012</span>
+</pre></div>
+
+
+<p>不仅是硬性详情信息，它也可以显示我们系统中的<strong>可用软件仓库列表</strong>。</p>
+<div class="highlight"><pre><span></span>inxi -r
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="err">Repos:</span>     <span class="err">Active</span> <span class="err">apt</span> <span class="err">sources</span> <span class="err">in</span> <span class="err">file:</span> <span class="err">/etc/apt/sources.list</span>
+           <span class="err">deb</span> <span class="err">http://ubuntu.excellmedia.net/archive/</span> <span class="err">trusty</span> <span class="err">main</span> <span class="err">restricted</span>
+           <span class="err">deb-src</span> <span class="err">http://ubuntu.excellmedia.net/archive/</span> <span class="err">trusty</span> <span class="err">main</span> <span class="err">restricted</span>
+           <span class="err">deb</span> <span class="err">http://ubuntu.excellmedia.net/archive/</span> <span class="err">trusty-updates</span> <span class="err">main</span> <span class="err">restricted</span>
+           <span class="err">deb-src</span> <span class="err">http://ubuntu.excellmedia.net/archive/</span> <span class="err">trusty-updates</span> <span class="err">main</span> <span class="err">restricted</span>
+           <span class="err">deb</span> <span class="err">http://ubuntu.excellmedia.net/archive/</span> <span class="err">trusty</span> <span class="err">universe</span>
+           <span class="err">.</span>
+           <span class="err">.</span>
+           <span class="err">Active</span> <span class="err">apt</span> <span class="err">sources</span> <span class="err">in</span> <span class="err">file:</span> <span class="err">/etc/apt/sources.list.d/intellinuxgraphics.list</span>
+           <span class="err">deb</span> <span class="err">https://download.01.org/gfx/ubuntu/14.04/main</span> <span class="err">trusty</span> <span class="err">main</span> <span class="c">#Intel Graphics drivers</span>
+           <span class="err">Active</span> <span class="err">apt</span> <span class="err">sources</span> <span class="err">in</span> <span class="err">file:</span> <span class="err">/etc/apt/sources.list.d/linrunner-tlp-trusty.list</span>
+           <span class="err">Active</span> <span class="err">apt</span> <span class="err">sources</span> <span class="err">in</span> <span class="err">file:</span> <span class="err">/etc/apt/sources.list.d/wseverin-ppa-trusty.list</span>
+           <span class="err">deb</span> <span class="err">http://ppa.launchpad.net/wseverin/ppa/ubuntu</span> <span class="err">trusty</span> <span class="err">main</span>
+</pre></div>
+
+
+<p>Inxi还可以显示你所在位置的天气信息。感到意外吗？是的，它可以。</p>
+<div class="highlight"><pre><span></span>inxi -W Erode,Tamilnadu
+</pre></div>
+
+
+<p>这里<strong>Erode</strong>是地区，<strong>Tamilnadu</strong>是印度的一个邦。</p>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><span class="n">Weather</span><span class="o">:</span>   <span class="n">Conditions</span><span class="o">:</span> <span class="mi">79</span> <span class="n">F</span> <span class="o">(</span><span class="mi">26</span> <span class="n">C</span><span class="o">)</span> <span class="o">-</span> <span class="n">Clear</span> <span class="n">Time</span><span class="o">:</span> <span class="n">February</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">6</span><span class="o">:</span><span class="mi">00</span> <span class="n">PM</span> <span class="n">IST</span>
+</pre></div>
+
+
+<h3>查看完整的硬件详情信息</h3>
+<p>厌倦了逐一获取每种硬件的信息？你可以使用如下命令将所有信息一次列出：</p>
+<div class="highlight"><pre><span></span>inxi -F
+</pre></div>
+
+
+<p><strong>示例输出：</strong></p>
+<div class="highlight"><pre><span></span><span class="nl">System</span><span class="p">:</span>    <span class="nl">Host</span><span class="p">:</span> <span class="n">sk</span> <span class="nl">Kernel</span><span class="p">:</span> <span class="mf">3.13.0</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="n">generic</span> <span class="n">x86_64</span> <span class="p">(</span><span class="mi">64</span> <span class="n">bit</span><span class="p">)</span> <span class="nl">Desktop</span><span class="p">:</span> <span class="n">LXDE</span> <span class="p">(</span><span class="n">Openbox</span> <span class="mf">3.5.2</span><span class="p">)</span> <span class="nl">Distro</span><span class="p">:</span> <span class="n">Ubuntu</span> <span class="mf">14.04</span> <span class="n">trusty</span>
+<span class="nl">Machine</span><span class="p">:</span>   <span class="nl">System</span><span class="p">:</span> <span class="n">Dell</span> <span class="p">(</span><span class="n">portable</span><span class="p">)</span> <span class="nl">product</span><span class="p">:</span> <span class="n">Inspiron</span> <span class="n">N5050</span>
+           <span class="nl">Mobo</span><span class="p">:</span> <span class="n">Dell</span> <span class="nl">model</span><span class="p">:</span> <span class="mo">01</span><span class="n">HXXJ</span> <span class="nl">version</span><span class="p">:</span> <span class="n">A05</span> <span class="nl">Bios</span><span class="p">:</span> <span class="n">Dell</span> <span class="nl">version</span><span class="p">:</span> <span class="n">A05</span> <span class="nl">date</span><span class="p">:</span> <span class="mi">08</span><span class="o">/</span><span class="mo">03</span><span class="o">/</span><span class="mi">2012</span>
+<span class="nl">CPU</span><span class="p">:</span>       <span class="n">Dual</span> <span class="n">core</span> <span class="n">Intel</span> <span class="n">Core</span> <span class="n">i3</span><span class="o">-</span><span class="mi">2350</span><span class="n">M</span> <span class="n">CPU</span> <span class="p">(</span><span class="o">-</span><span class="n">HT</span><span class="o">-</span><span class="n">MCP</span><span class="o">-</span><span class="p">)</span> <span class="nl">cache</span><span class="p">:</span> <span class="mi">3072</span> <span class="n">KB</span> <span class="nl">flags</span><span class="p">:</span> <span class="p">(</span><span class="n">lm</span> <span class="n">nx</span> <span class="n">sse</span> <span class="n">sse2</span> <span class="n">sse3</span> <span class="n">sse4_1</span> <span class="n">sse4_2</span> <span class="n">ssse3</span> <span class="n">vmx</span><span class="p">)</span> 
+           <span class="n">Clock</span> <span class="nl">Speeds</span><span class="p">:</span> <span class="mi">1</span><span class="o">:</span> <span class="mf">800.00</span> <span class="n">MHz</span> <span class="mi">2</span><span class="o">:</span> <span class="mf">1000.00</span> <span class="n">MHz</span> <span class="mi">3</span><span class="o">:</span> <span class="mf">800.00</span> <span class="n">MHz</span> <span class="mi">4</span><span class="o">:</span> <span class="mf">800.00</span> <span class="n">MHz</span>
+<span class="nl">Graphics</span><span class="p">:</span>  <span class="nl">Card</span><span class="p">:</span> <span class="n">Intel</span> <span class="mi">2</span><span class="n">nd</span> <span class="n">Generation</span> <span class="n">Core</span> <span class="n">Processor</span> <span class="n">Family</span> <span class="n">Integrated</span> <span class="n">Graphics</span> <span class="n">Controller</span> 
+           <span class="n">X</span><span class="p">.</span><span class="nl">Org</span><span class="p">:</span> <span class="mf">1.15.1</span> <span class="nl">drivers</span><span class="p">:</span> <span class="n">intel</span> <span class="p">(</span><span class="nl">unloaded</span><span class="p">:</span> <span class="n">fbdev</span><span class="p">,</span><span class="n">vesa</span><span class="p">)</span> <span class="nl">Resolution</span><span class="p">:</span> <span class="mi">1366</span><span class="n">x768</span><span class="mf">@60.0</span><span class="n">hz</span> 
+           <span class="n">GLX</span> <span class="nl">Renderer</span><span class="p">:</span> <span class="n">Mesa</span> <span class="n">DRI</span> <span class="n">Intel</span> <span class="n">Sandybridge</span> <span class="n">Mobile</span> <span class="n">GLX</span> <span class="nl">Version</span><span class="p">:</span> <span class="mf">3.0</span> <span class="n">Mesa</span> <span class="mf">10.3.0</span>
+<span class="nl">Audio</span><span class="p">:</span>     <span class="nl">Card</span><span class="p">:</span> <span class="n">Intel</span> <span class="mi">6</span> <span class="n">Series</span><span class="o">/</span><span class="n">C200</span> <span class="n">Series</span> <span class="n">Family</span> <span class="n">High</span> <span class="n">Definition</span> <span class="n">Audio</span> <span class="n">Controller</span> <span class="nl">driver</span><span class="p">:</span> <span class="n">snd_hda_intel</span> 
+           <span class="nl">Sound</span><span class="p">:</span> <span class="n">Advanced</span> <span class="n">Linux</span> <span class="n">Sound</span> <span class="n">Architecture</span> <span class="nl">ver</span><span class="p">:</span> <span class="n">k3</span><span class="mf">.13.0</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="n">generic</span>
+<span class="nl">Network</span><span class="p">:</span>   <span class="n">Card</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span> <span class="n">Qualcomm</span> <span class="n">Atheros</span> <span class="n">AR9285</span> <span class="n">Wireless</span> <span class="n">Network</span> <span class="n">Adapter</span> <span class="p">(</span><span class="n">PCI</span><span class="o">-</span><span class="n">Express</span><span class="p">)</span> <span class="nl">driver</span><span class="p">:</span> <span class="n">ath9k</span> 
+           <span class="nl">IF</span><span class="p">:</span> <span class="n">wlan0</span> <span class="nl">state</span><span class="p">:</span> <span class="n">up</span> <span class="nl">mac</span><span class="p">:</span> 
+           <span class="n">Card</span><span class="o">-</span><span class="mi">2</span><span class="o">:</span> <span class="n">Realtek</span> <span class="n">RTL8101E</span><span class="o">/</span><span class="n">RTL8102E</span> <span class="n">PCI</span> <span class="n">Express</span> <span class="n">Fast</span> <span class="n">Ethernet</span> <span class="n">controller</span> <span class="nl">driver</span><span class="p">:</span> <span class="n">r8169</span> 
+           <span class="nl">IF</span><span class="p">:</span> <span class="n">eth0</span> <span class="nl">state</span><span class="p">:</span> <span class="n">down</span> <span class="nl">mac</span><span class="p">:</span> 
+<span class="nl">Drives</span><span class="p">:</span>    <span class="n">HDD</span> <span class="n">Total</span> <span class="nl">Size</span><span class="p">:</span> <span class="mf">500.1</span><span class="n">GB</span> <span class="p">(</span><span class="mf">52.5</span><span class="o">%</span> <span class="n">used</span><span class="p">)</span> <span class="mi">1</span><span class="o">:</span> <span class="kt">id</span><span class="o">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="nl">model</span><span class="p">:</span> <span class="n">ST9500325AS</span> <span class="nl">size</span><span class="p">:</span> <span class="mf">500.1</span><span class="n">GB</span> 
+<span class="nl">Partition</span><span class="p">:</span> <span class="nl">ID</span><span class="p">:</span> <span class="o">/</span> <span class="nl">size</span><span class="p">:</span> <span class="mi">455</span><span class="n">G</span> <span class="nl">used</span><span class="p">:</span> <span class="mi">245</span><span class="n">G</span> <span class="p">(</span><span class="mi">57</span><span class="o">%</span><span class="p">)</span> <span class="nl">fs</span><span class="p">:</span> <span class="n">ext4</span> <span class="nl">ID</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span> <span class="nl">size</span><span class="p">:</span> <span class="mi">236</span><span class="n">M</span> <span class="nl">used</span><span class="p">:</span> <span class="mi">159</span><span class="n">M</span> <span class="p">(</span><span class="mi">72</span><span class="o">%</span><span class="p">)</span> <span class="nl">fs</span><span class="p">:</span> <span class="n">ext2</span> 
+           <span class="nl">ID</span><span class="p">:</span> <span class="n">swap</span><span class="o">-</span><span class="mi">1</span> <span class="nl">size</span><span class="p">:</span> <span class="mf">4.19</span><span class="n">GB</span> <span class="nl">used</span><span class="p">:</span> <span class="mf">0.00</span><span class="n">GB</span> <span class="p">(</span><span class="mi">0</span><span class="o">%</span><span class="p">)</span> <span class="nl">fs</span><span class="p">:</span> <span class="n">swap</span> 
+<span class="nl">RAID</span><span class="p">:</span>      <span class="n">No</span> <span class="n">RAID</span> <span class="n">devices</span> <span class="n">detected</span> <span class="o">-</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">mdstat</span> <span class="n">and</span> <span class="n">md_mod</span> <span class="n">kernel</span> <span class="n">raid</span> <span class="n">module</span> <span class="n">present</span>
+<span class="nl">Sensors</span><span class="p">:</span>   <span class="n">System</span> <span class="nl">Temperatures</span><span class="p">:</span> <span class="nl">cpu</span><span class="p">:</span> <span class="mf">64.5</span><span class="n">C</span> <span class="nl">mobo</span><span class="p">:</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span> 
+           <span class="n">Fan</span> <span class="n">Speeds</span> <span class="p">(</span><span class="k">in</span> <span class="n">rpm</span><span class="p">)</span><span class="o">:</span> <span class="nl">cpu</span><span class="p">:</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span> 
+<span class="nl">Info</span><span class="p">:</span>      <span class="nl">Processes</span><span class="p">:</span> <span class="mi">186</span> <span class="nl">Uptime</span><span class="p">:</span> <span class="mi">6</span><span class="o">:</span><span class="mi">52</span> <span class="nl">Memory</span><span class="p">:</span> <span class="mf">1547.2</span><span class="o">/</span><span class="mf">3861.3</span><span class="n">MB</span> <span class="nl">Client</span><span class="p">:</span> <span class="n">Shell</span> <span class="p">(</span><span class="n">bash</span><span class="p">)</span> <span class="nl">inxi</span><span class="p">:</span> <span class="mf">1.9.17</span>
+</pre></div>
+
+
+<p>就像上面你看到的那样，inxi显示出了完整的硬件详情信息。</p>
+<p>更多的细节可以参考man手册。</p>
+<div class="highlight"><pre><span></span>man inxi
+</pre></div>
+
+
+<h3>结论</h3>
+<p>你在寻找一个可以显示完整的系统和硬件详情信息的简单工具吗？那么不用再找了，inxi会提供你所需要的。并且，它还是在你系统默认的软件仓库中的轻量级工具。你还想要更多东西吗？试一试它，你不会失望。</p>
+<p>欢呼吧！</p>
+<hr>
+<p>via: http://www.unixmen.com/inxi-find-system-hardware-information-linux/</p>
+<p>作者：<a href="http://www.unixmen.com/author/sk/">SK</a>
+译者：<a href="https://github.com/goreliu">goreliu</a>
+校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创翻译，<a href="http://linux.cn/">Linux中国</a> 荣誉推出</p>
+                </div>
+                <footer class="text-right">
+                    <p>- goreliu</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="goreliu" />
+        <meta name="description" content="导读 grep 是 Linux 下的一个常用命令，主要功能是从文本中检索出自己需要的内容，但它的功能也很复杂多样，是文本处理时不可多得的利器。 网上关于 grep 用法的资料已经有很多了，甚至有相关的书籍，那么我为什么要另起炉灶再写一份《grep 命令快速参考手册》呢？ 因为现有的资料虽然很多，但比较零散，作为学习教程还好，但能供快速查询使用的资料几乎没有。所以当需要查一些 grep 复杂用法时，往往需要直接在搜索引擎搜索 grep xxx，然后运气好的话可以很快找到用法（但如果不记笔记的话，下次可能又忘了），运气不好的话可能翻上几页也找不到，然后将只能去各种文档里全文搜索，或者去某些网站提问，效率低下。 而我现在写的这份文档，会将我所能收集到的和 grep 相关的所有资料有条理地组织起来，这样的话以后遇到 grep 相关的问题，通常只需要查着或者全文搜索一份文档就够了（但和正则表达式相关的内容并不全面，我后续也打算写一份正则表达式快速参考手册，以便配合使用），省心省力。当然这份文档的完善也是需要一定时间的。 grep 基本用法 …" />
+
+
+    <title>grep 命令快速参考手册 - 陌辞寒</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/theme/css/pygments/default.css" rel="stylesheet" />
+    
+    <link href="/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="/theme/css/github.css" rel="stylesheet" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="" title="陌辞寒" class="collapsed">
+            <span class="fa fa-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="/archives.html" title="Recent Articles" class="collapsed">
+            <span class="fa fa-list-ul"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            <span class="fa fa-home padding-small"></span>
+                            陌辞寒
+                    </a>
+                </li>
+                    <li>
+                        <a href="/archives.html">
+                            <span class="fa fa-list-ul padding-small"></span>
+                            最近
+                        </a>
+                    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        页面
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="/pages/guan-yu-wo.html">
+                            <i class="fa fa-file-text padding-small"></i>
+                            关于我
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        分类
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="/category/ahk.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            AHK
+                            <span class="badge pull-right categorybadge">15</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/cao-gao.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            草稿
+                            <span class="badge pull-right categorybadge">28</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/du-shu.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            读书
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/category/it.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            IT
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="/category/sui-bi.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            随笔
+                            <span class="badge pull-right categorybadge">21</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="fa fa-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="fa fa-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <header class="page-header">
+                    <h2>
+                        <a href="/grep-ming-ling-kuai-su-can-kao-shou-ce.html"
+                           rel="bookmark"
+                           title="Permalink to grep 命令快速参考手册">
+                            grep 命令快速参考手册
+                        </a>
+                        <br>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-30T15:13:00+08:00"> 2017-09-30 15:13</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h2>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h3>导读</h3>
+<p><code>grep</code> 是 Linux 下的一个常用命令，主要功能是从文本中检索出自己需要的内容，但它的功能也很复杂多样，是文本处理时不可多得的利器。</p>
+<p>网上关于 <code>grep</code> 用法的资料已经有很多了，甚至有相关的书籍，那么我为什么要另起炉灶再写一份《grep 命令快速参考手册》呢？</p>
+<p>因为现有的资料虽然很多，但比较零散，作为学习教程还好，但能供快速查询使用的资料几乎没有。所以当需要查一些 <code>grep</code> 复杂用法时，往往需要直接在搜索引擎搜索 <code>grep xxx</code>，然后运气好的话可以很快找到用法（但如果不记笔记的话，下次可能又忘了），运气不好的话可能翻上几页也找不到，然后将只能去各种文档里全文搜索，或者去某些网站提问，效率低下。</p>
+<p>而我现在写的这份文档，会将我所能收集到的和 <code>grep</code> 相关的所有资料<strong>有条理</strong>地组织起来，这样的话以后遇到 <code>grep</code> 相关的问题，通常只需要查着或者全文搜索一份文档就够了（但和正则表达式相关的内容并不全面，我后续也打算写一份正则表达式快速参考手册，以便配合使用），省心省力。当然这份文档的完善也是需要一定时间的。</p>
+<h3>grep 基本用法</h3>
+<p>不同版本的 <code>grep</code> 命令的用法可能有细微的差别，本文使用的 <code>grep</code> 命令版本为 <code>grep (GNU grep) 3.1</code>。</p>
+<p>示例文本文件 <code>test.txt</code>：</p>
+<div class="highlight"><pre><span></span>aaa bbb ccc
+ccc ddd eee
+eee fff ggg
+</pre></div>
+
+
+<h4>搜索包含指定字符串的行</h4>
+<div class="highlight"><pre><span></span># 或者使用 grep ccc test.txt，实际场景建议这样直接加文件，可以少启动一个进程
+# 但我为了方便修改，统一使用 cat 加管道
+% cat test.txt | grep ccc
+aaa bbb ccc
+ccc ddd eee
+</pre></div>
+
+
+<h4>搜索不包含指定字符串的行</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -v ccc</span>
+<span class="n">eee</span> <span class="n">fff</span> <span class="n">ggg</span>
+</pre></div>
+
+
+<h4>在搜索结果的每行行首添加行号</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -n ccc</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+
+<span class="c">% cat test.txt | grep -vn ccc</span>
+<span class="mi">3</span><span class="p">:</span><span class="n">eee</span> <span class="n">fff</span> <span class="n">ggg</span>
+</pre></div>
+
+
+<h4>只输出匹配到的字符串，而非整行内容</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -o ccc</span>
+<span class="n">ccc</span>
+<span class="n">ccc</span>
+</pre></div>
+
+
+<h3>输出匹配到的字符串在文件中的位置</h3>
+<div class="highlight"><pre><span></span># 文件第一个字符位置（地址）是 0，换行符也占一个位置
+% cat test.txt | grep -ob ccc
+8:ccc
+12:ccc
+</pre></div>
+
+
+<h4>匹配时忽略大小写</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -i CcC</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+</pre></div>
+
+
+<h4>仅输出匹配到的行数</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -c ccc</span>
+<span class="mi">2</span>
+</pre></div>
+
+
+<h4>搜索以特定字符串开头的行</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep &#39;^ccc&#39;</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+</pre></div>
+
+
+<h4>搜索以特定字符串结尾的行</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep &#39;ccc$&#39;</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+</pre></div>
+
+
+<h4>只输出整个单词都匹配的行</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -w ccc</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+
+<span class="c">% cat test.txt | grep -w cc</span>
+</pre></div>
+
+
+<h4>只输出整行内容都匹配的行</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test.txt | grep -x &#39;aaa bbb ccc&#39;</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+
+<span class="c">% cat test.txt | grep -x ccc</span>
+</pre></div>
+
+
+<h3>搜索多个文件</h3>
+<p>示例文本文件 <code>test_1.txt</code>：</p>
+<div class="highlight"><pre><span></span>aaa bbb ccc
+ccc ddd eee
+eee fff ggg
+</pre></div>
+
+
+<p>示例文本文件 <code>test_2.txt</code>：</p>
+<div class="highlight"><pre><span></span>ccc ddd eee
+eee fff ggg
+ggg hhh iii
+</pre></div>
+
+
+<p>示例文本文件 <code>test_3.txt</code>：</p>
+<div class="highlight"><pre><span></span>eee fff ggg
+ggg hhh iii
+iii jjj kkk
+</pre></div>
+
+
+<h4>从多个文件中搜索匹配到的行，不显示文件名</h4>
+<div class="highlight"><pre><span></span><span class="c">% cat test_*.txt | grep ccc</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+
+# 或者
+<span class="c">% grep -h ccc test_*.txt</span>
+<span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+<span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+</pre></div>
+
+
+<h4>从多个文件中搜索匹配到的行，显示文件名</h4>
+<div class="highlight"><pre><span></span># 如果 grep 后加多个文件名，那么默认显示文件名
+% grep ccc test_*.txt
+test_1.txt:aaa bbb ccc
+test_1.txt:ccc ddd eee
+test_2.txt:ccc ddd eee
+
+# 如果 grep 后加单个文件名，那么默认不显示文件名
+% grep ccc test_1.txt
+aaa bbb ccc
+ccc ddd eee
+
+# 即使加单个文件名，也显示文件名
+% grep -H ccc test_1.txt
+test_1.txt:aaa bbb ccc
+test_1.txt:ccc ddd eee
+</pre></div>
+
+
+<h4>只输出匹配到内容的文件对应文件名</h4>
+<div class="highlight"><pre><span></span><span class="c">% grep -l ccc test_*.txt</span>
+<span class="n">test_1</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">test_2</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<h4>只输出没有匹配到内容的文件对应文件名</h4>
+<div class="highlight"><pre><span></span><span class="c">% grep -L ccc test_*.txt</span>
+<span class="n">test_3</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<h4>递归搜索指定目录下的所有文件</h4>
+<div class="highlight"><pre><span></span># 递归搜索当前目录下的所有文件
+# -r 也可替换成 -R，-r 不进入目录的符号连接，-R 进入目录的符号连接，不举例
+% grep ccc -r .
+./test_1.txt:aaa bbb ccc
+./test_1.txt:ccc ddd eee
+./test_2.txt:ccc ddd eee
+
+# 递归搜索 test 目录下的所有文件
+% grep ccc -r test
+test/test_1.txt:aaa bbb ccc
+test/test_1.txt:ccc ddd eee
+test/test_2.txt:ccc ddd eee
+
+# -h -l 等选项依然可用，不依次举例
+% grep ccc -rh test
+aaa bbb ccc
+ccc ddd eee
+ccc ddd eee
+</pre></div>
+
+
+<h4>排除特定文件</h4>
+<div class="highlight"><pre><span></span><span class="c">% grep --exclude test_2.txt ccc test_*.txt</span>
+<span class="n">test_1</span><span class="p">.</span><span class="n">txt</span><span class="p">:</span><span class="n">aaa</span> <span class="n">bbb</span> <span class="n">ccc</span>
+<span class="n">test_1</span><span class="p">.</span><span class="n">txt</span><span class="p">:</span><span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+
+# 可以使用通配符，带通配符的话，需要用引号括起来
+<span class="c">% grep --exclude &#39;test_[13].txt&#39; ccc test_*.txt</span>
+<span class="n">test_2</span><span class="p">.</span><span class="n">txt</span><span class="p">:</span><span class="n">ccc</span> <span class="n">ddd</span> <span class="n">eee</span>
+</pre></div>
+
+
+<h4>通配符用法</h4>
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>任意数量的任意字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td>一个任意字符</td>
+</tr>
+<tr>
+<td>[abc]</td>
+<td>a、b、c 中的任意一个字符</td>
+</tr>
+<tr>
+<td>[a-d]</td>
+<td>a、b、c、d 中的任意一个字符</td>
+</tr>
+<tr>
+<td>\*</td>
+<td>转义特殊符号 *（?、[、\ 等同理）</td>
+</tr>
+</tbody>
+</table>
+<p>包含特定文件</p>
+<p>-d&lt;进行动作&gt; 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。</p>
+<h3>输出匹配行的前后内容</h3>
+<p>输出前后行数 -C -B -A</p>
+<h3>正则表达式版本</h3>
+<p>-e -f -P -G（默认）</p>
+<h3>其他杂项</h3>
+<p>-f file 搜索从 file 文件读取到的字符串</p>
+<p>-a 不要忽略二进制数据。</p>
+<p>-q 不显示任何输出，用于做判断</p>
+<p>-s 不显示错误信息</p>
+<p>--color</p>
+<p>grep "aaa" file -lZ | xargs -0 rm</p>
+<p>-d read/skip</p>
+<h3>命令行选项列表</h3>
+<h3>参考</h3>
+<p>http://www.jb51.net/article/72112.htm</p>
+<p>http://man.linuxde.net/grep</p>
+<p>http://www.linuxidc.com/Linux/2017-09/146645.htm</p>
+<p>http://linux.51yip.com/search/grep</p>
+<p>http://blog.csdn.net/nixawk/article/details/24235239</p>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;
+                <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
+                &copy; 2017 goreliu
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="/theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="goreliu" />
-        <meta name="description" content="注：并非严谨的翻译，部分内容有删改。另外该帖子是三年前的，有关 AHK 的内容可能有些部分已经过时。所有内容都和我的个人观点无关。 源地址：Why doesn&#39;t AHK get the respect it deserves? Cruncher1，2013 年 3 月 2 日 在 Google 搜“简单易学的编程语言”或者“创建图形界面的编程语言”之类的时候，你永远不会在结果中看到 AHK。然后，它是创建一个简洁的图形界面来完成日常工作的最容易的方法。它很有趣也易于学习，我想对于每个人而言，它都是一门令人惊叹的编程语言。甚至我 6 岁大的孩子都可以学会足够的代码用来娱乐。我并不是一个“真正”的程序员，所以我请教下。什么事情上 Java、Python 或者 C …" />
+        <meta name="description" content="树莓派 3 自带的有线网卡是 100M 的，无线网卡是 72M 的，都比较慢。想提升网速的话，最直接的方法是使用 usb 网卡，千兆的有线网卡或者 450M 以上的 2.4GHz 无线网卡或者 5GHz 无线网卡。但因为树莓派 3 的 usb 接口是 2.0 的，而且 tf 卡也要共享带宽，所以也提升不了太多，而高速的 usb 网卡也不便宜（千兆 usb 有线网卡最便宜大概要 50 多，450M 以上的 usb 无线网卡更贵），而且大家手头上通常没有闲置的，为此购买不大值得。 那么一个间接的方法是同时使用有线和无线网卡，这样合理使用的话速度可以叠加。因为我有一个闲置的 …" />
 
 
-    <title>[译] 为什么 AHK 没有得到应有的尊重 - 陌辞寒</title>
+    <title>同时使用多网卡提升树莓派网络利用率 - 陌辞寒</title>
 
         <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
 
@@ -99,7 +99,7 @@
                             <span class="badge pull-right categorybadge">15</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li >
                         <a href="/category/cao-gao.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             草稿
@@ -113,7 +113,7 @@
                             <span class="badge pull-right categorybadge">6</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="/category/it.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             IT
@@ -148,10 +148,10 @@
             <div class="col-lg-9">
                 <header class="page-header">
                     <h2>
-                        <a href="/yi-wei-shi-yao-ahk-mei-you-de-dao-ying-you-de-zun-zhong.html"
+                        <a href="/tong-shi-shi-yong-duo-wang-qia-ti-sheng-shu-mei-pai-wang-luo-li-yong-lu.html"
                            rel="bookmark"
-                           title="Permalink to [译] 为什么 AHK 没有得到应有的尊重">
-                            [译]  为什么 AHK 没有得到应有的尊重
+                           title="Permalink to 同时使用多网卡提升树莓派网络利用率">
+                            同时使用多网卡提升树莓派网络利用率
                         </a>
                         <br>
                         <small>
@@ -159,10 +159,10 @@
     <div class="publish-info-block">
         <small>
             <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2016-01-01T00:00:00+08:00"> 2016-01-01 00:00</time>
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-11-19T13:52:00+08:00"> 2017-11-19 13:52</time>
             </span>
             <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="/category/cao-gao.html">草稿</a>
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
             </span>
         </small>
     </div>
@@ -174,36 +174,28 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <div class="highlight"><pre><span></span>注：并非严谨的翻译，部分内容有删改。另外该帖子是三年前的，有关 AHK 的内容可能有些部分已经过时。所有内容都和我的个人观点无关。
+                    <p>树莓派 3 自带的有线网卡是 100M 的，无线网卡是 72M 的，都比较慢。想提升网速的话，最直接的方法是使用 usb 网卡，千兆的有线网卡或者 450M 以上的 2.4GHz 无线网卡或者 5GHz 无线网卡。但因为树莓派 3 的 usb 接口是 2.0 的，而且 tf 卡也要共享带宽，所以也提升不了太多，而高速的 usb 网卡也不便宜（千兆 usb 有线网卡最便宜大概要 50 多，450M 以上的 usb 无线网卡更贵），而且大家手头上通常没有闲置的，为此购买不大值得。</p>
+<p>那么一个间接的方法是同时使用有线和无线网卡，这样合理使用的话速度可以叠加。因为我有一个闲置的 300M usb 无线网卡，所以将它和内置有线网卡一起使用（因为测试过，它和内置无线网卡一起使用的话，会互相影响，速度反而更慢，所以不用内置无线网卡了），这样理论上就有 400M 的带宽了，当然实际上达不到。</p>
+<p>但一起使用的话需要一些技术手段，如果只是（在同一个网段）简单启用双网卡，虽然两个 ip 地址都能用，但实际上只有一个网卡会工作，因为所有的流量都走到了路由表里第一个网卡了，这样肯定是不行的。那么大致有如下几个方法：
+1、两个网卡分别接入不同的网段。
+2、两个网卡绑定在一起使用。
+3、配置路由表，让两个网卡在同一个网段可以同时使用。</p>
+<p>因为我的网络环境很简单，只有一个路由器和一个网段，所以方法 1 我就不考虑了。但如果有两个网段的话，方法 1 是最简单的。开始时我想使用方法 2，将两个有线网卡绑定到一起来共享 1 个 ip 是比较简单的，但将一个有线网卡和一个无线网卡绑定到一起，则麻烦很多，网上资料也比较杂乱。另外因为我配置也是通过 ssh 进行的，不能把网络连接搞断了。还好我还有内置无线网卡可以使用，如果一共只有两个网卡，那几乎就没办法配置了。但即使这样也很麻烦，最后几经尝试都以失败告终。</p>
+<p>最后只能使用方法 3。方法 3 的好处是配置简单，但缺点是使用起来比较麻烦，需要自己来做负载均衡，不过灵活性比较高。</p>
+<p>我路由器地址是 192.168.1.1，有线网卡是 eth0，无线网卡是 wlan0，在路由器上分别绑定到 192.168.1.6 和 192.168.1.7。那么在两个网卡都连接上后，只需要执行这样一个脚本，就可以让两个网卡同时工作了：</p>
+<div class="highlight"><pre><span></span>ip route add 192.168.1.0/24 dev eth0 src 192.168.1.6 table 100
+ip route add default via 192.168.1.1 dev eth0 table 100
+ip rule add from 192.168.1.6 lookup 100
+
+ip route add 192.168.1.0/24 dev wlan0 src 192.168.1.7 table 200
+ip route add default via 192.168.1.1 dev wlan0 table 200
+ip rule add from 192.168.1.7 lookup 200
 </pre></div>
 
 
-<p>源地址：<a href="https://autohotkey.com/board/topic/90892-why-doesnt-ahk-get-the-respect-it-deserves/">Why doesn't AHK get the respect it deserves? </a></p>
-<h2>Cruncher1，2013 年 3 月 2 日</h2>
-<p>在 Google 搜“简单易学的编程语言”或者“创建图形界面的编程语言”之类的时候，你永远不会在结果中看到 AHK。然后，它是创建一个简洁的图形界面来完成日常工作的最容易的方法。它很有趣也易于学习，我想对于每个人而言，它都是一门令人惊叹的编程语言。甚至我 6 岁大的孩子都可以学会足够的代码用来娱乐。我并不是一个“真正”的程序员，所以我请教下。什么事情上 Java、Python 或者 C++ 可以做，而 AHK 做不到的呢？</p>
-<h2>IsNull，2013 年 3 月 2 日</h2>
-<p>脚本语言和更专业的编程语言开始合为一体了，性能不再是关键问题。</p>
-<p>现在一门编程语言的功能特性更重要。开发效率和代码的可维护性是最重要的方面。</p>
-<p>然而，AHK 缺失管理大型项目所需的一些概念。比如类型定义、类型安全（这些特性通常被 IDE 很好地支持，以便提高生产力）。</p>
-<p>缺失对多线程的支持是另一个问题，可能是和其他语言相比 AHK 最大的一个局限。</p>
-<p>更专业的编程语言的严谨让它们对新手不那么友好。有人可能会说，脚本语言通常遵循着“直接使用，无需事先定义”的原则，而专业的编程语言则是“使用前必须先定义”。这真是个悲伤的事情。
- 
-编程语言只是工具而已，我们应该根据具体事情的特点来选择合适的工具。也许某些人会发现，在某些领域，我们还是需要一些新的定制化工具。</p>
-<h2>Cruncher1，2013 年 3 月 2 日</h2>
-<p>我明白你的意思。对于我做的事情，（不支持）多线程不是问题。并且我只有一个我可以称之为“大代码项目”的东西，也就大概 2000 多行代码的样子。有时我努力纠正一个错误或者修改一些东西时，感受到管理 AHK 代码是一种煎熬。我会去查找那些观念（类型定义，类型安全，……），尽管我对它们还不熟悉。我已经确定学习 Python 了。它看起来是一门适合 AHK 用户接下来使用的编程语言。它相当简单，但很强大，并且比 AHK 更有名气。</p>
-<h2>WhyTYSir，2013 年 3 月 2 日</h2>
-<div class="highlight"><pre><span></span>脚本语言和更专业的编程语言开始合为一体了，性能不再是关键问题。
-</pre></div>
-
-
-<p>你不是用 C# 写出 Truecrypt 工具的作者吗？它的速度怎么样呢？所以你在之后将它修改成多线程的并且相信结果总是好的。好吧。
-Aren't you the one who made a C# Truecrypt brute-force tool? How did the speed turn out on that? So then you multi-threaded it and hoped for the best? Ok [图片上传中。。。（1）]
- </p>
-<p>That whole 'performance is no longer a key point' has been making its rounds since people found out that a game called Doom (that was created way back when) used hardly any ASM and relied heavily on a then-modern compiler for optimization. Could it have benefited from some hand-sewn ASM? It didn't matter, since computers were so much more powerful back then their predecessors!
- 
-The facade continues because 90% of the apps written today are heavily UI-based and do nothing more than utter BS. Even heavily resource intensive games that could use tweaking don't get it because of this fallacy. Laziness and costs are the driving factors anymore. It's not that computers are now ALL-POWERFUL, it's that people want to save a dollar and are lazy. So, if they can convince some idiots that C# or VB or AHK is as fast as ASM, C or C++, it's a benefit to them. Where the Sheppard goes, the sheep will follow.
- 
-Please don't take this as an affront. I just see this lie perpetuated with a lot of programs I use and it irks me. Waiting for programs to open, waiting on pages to load, waiting on games to load the next part and FR in general, waiting on hash programs to finish... it drives me crazy when I know they were written with the writer's convenience in mind and not the user's.</p>
+<p>具体效果是通过 192.168.1.6 访问树莓派会走有线网卡，通过 192.168.1.7 访问树莓派会走无线网卡。如果从树莓派下载多个文件，可以通过轮询或者随机选择 ip 来生成文件地址列表文件，然后使用 <code>aria2c -i 文件列表</code> 来下载，就可以同时使用两个网卡了。</p>
+<p>如果是在树莓派往外连接，还是要看路由表里哪个网卡在前边（用 <code>ip route</code> 命令查看，一般有线网卡在前边），另外也可以在命令里指定网卡，比如用 <code>curl --interface eth0</code> 或者 <code>wget --bind-address 192.168.1.6</code>。</p>
+<p>可以使用了后，重点就是速度能提升多少了。在我的环境，从树莓派往电脑下载文件，树莓派内置有线网卡能达到 11.3 MB/s，300M 的无线网卡，速度最快能达到 21 MB/s 出头，但不稳定，容易降到十几兆。一起使用的话，最快可以达到 30 MB/s 出头，但容易降到 25 - 26 MB/s。效果还是非常明显的。</p>
                 </div>
             </div>
         </div>

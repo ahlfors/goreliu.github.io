@@ -5,12 +5,12 @@ css/aria-ng-2aa6affdda.min.css
 css/bootstrap-3.3.7.min.css
 css/plugins-a7090b9582.min.css
 js/angular-packages-1.6.5.min.js
-js/aria-ng-46280fd718.min.js
+js/aria-ng-9225d0c34c.min.js
 js/bootstrap-3.3.7.min.js
 js/echarts-common-3.7.1.min.js
 js/jquery-2.2.4.min.js
 js/moment-with-locales-2.18.1.min.js
-js/plugins-f99230fa2d.min.js
+js/plugins-51e177fafe.min.js
 fonts/fontawesome-webfont.woff2
 index.html
 
@@ -20,4 +20,4 @@ NETWORK:
 SETTINGS:
 prefer-online
 
-# hash: 4a2ce774c8cfea59094fb2cd652875728e197199cfbb6cd11b144ff02bef8900
+# hash: add5d3cf82012c757c148181b4d1e0291d942eed44ff0bca7a1b2876232604de

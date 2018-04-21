@@ -103,7 +103,7 @@
                         <a href="/category/cao-gao.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             草稿
-                            <span class="badge pull-right categorybadge">28</span>
+                            <span class="badge pull-right categorybadge">29</span>
                         </a>
                     </li>
                     <li >
@@ -151,6 +151,36 @@
 </section>
 <div class="row">
     <div class="col-lg-9">
+            <article>
+                <header class="page-header">
+                    <h2>
+                        <a href="/yong-jq-ming-ling-chu-li-json-shu-ju.html">用 jq 命令处理 JSON 数据</a>
+                        <br>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2018-01-01T00:00:00+08:00"> 2018-01-01 00:00</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="/category/cao-gao.html">草稿</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                    </h2>
+                </header>
+                <div class="summary">
+                    <h3>导读</h3>
+<p>JSON 是一种常见的数据格式，但 zsh 并没有原生的方法处理 JSON 数据，好在有一个功能强大易用的 <a href="https://stedolan.github.io/jq/">jq</a> 命令行工具。本文主要讲 jq 命令的方法，虽然网上有很多相关资料，但比较零散不成系统，用于学习尚可，但作为手册查询的话并不方便。本文会将所有相关资料组织起来，便于学习和查询。本文使用的 jq 版本为 1.5。</p>
+<p>需要注意的是如果要频繁处理 JSON 数据，用 zsh 并不合适，因为频繁调用 jq 命令会带来巨大的进程启动开销，而且 zsh 和 jq 之间的衔接也不是很自然，总体上并不如 Python 等语言好用。</p>
+<h3>读取字段</h3>
+<p>示例文件 test.json：</p>
+<div class="highlight"><pre><span></span>{
+  &quot;int&quot;: 100,
+  &quot;str&quot;: &quot;hello …</pre></div>
+                </div>
+            </article>
+            <hr/>
             <article>
                 <header class="page-header">
                     <h2>
@@ -253,36 +283,6 @@
                     <p>前几天闲来无事买来个树莓派玩。并不是想用来做什么，甚至没想到要怎么玩，更多是因为一种“情怀”吧，关于 Linux 的。我大概从 08 年开始用桌面 Linux，一直到 15 年换成 Windows（开始时用虚拟机装 Linux，后来改用 Cygwin/MSYS2，就很少用了。再后来 Win 10 有了 WSL，我把虚拟机也删了）。但对我来说，Windows 是用的而不是玩的，甚至 WSL 基本已经能满足所有关于 Linux 的实用性功能后，我还是感觉 WSL 是用的而不是玩的。那我为什么不用虚拟机来玩 Linux呢？理论上，虚拟机可以满足所有我折腾 Linux 的功能性需求，只是有一点，感觉不一样。面对运行在虚拟机里的 Linux …</p>
                 </div>
             </article>
-            <hr/>
-            <article>
-                <header class="page-header">
-                    <h2>
-                        <a href="/wo-guan-yu-shu-mei-pai-xing-neng-di-de-kan-fa.html">我关于树莓派性能低的看法</a>
-                        <br>
-<div class="post-info">
-    <div class="publish-info-block">
-        <small>
-            <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2017-04-23T10:37:00+08:00"> 2017-04-23 10:37</time>
-            </span>
-            <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="/category/it.html">IT</a>
-            </span>
-        </small>
-    </div>
-</div><!-- /.post-info -->                    </h2>
-                </header>
-                <div class="summary">
-                    <p>树莓派被广为诟病的一个地方就是性能低（这里以树莓派 3b 为准，更早产品的性能确实不能满足很多场景的需求），性能包括 CPU、GPU、网络传输、USB 传输、SD 卡读写等诸多方面。很多人希望有一款高性能的树莓派，价格贵也没关系。我开始时也是这么想的，到处找和树莓派差不多但性能更好的设备，但找来找去没发现更满意的，有的接口太少，有的软件环境太糟糕，有的资料太少没有成熟的社区，各有各的问题。但我慢慢发现自己陷入到一个性能误区里。我需要更高的性能来做什么呢？如果不把需求明确了，那就很难找到能让自己满意的设备。</p>
-<p>于是我开始想树莓派有哪些优势，适合使用者哪些场景。然后我得出了一个结论，如果认为树莓派性能太差，那绝大多数情况都是选型时出了明显的问题。</p>
-<p>那些树莓派不适合的场景以及更优选择：</p>
-<p>1、用来当路由器</p>
-<p>不适原因：CPU/GPU、接口、软件平台资源浪费，网络性能不足。
-更优选择：同价位（或者更便宜）的路由器。</p>
-<p>2、NAS</p>
-<p>不适原因：接口、软件平台资源浪费，网络性能 …</p>
-                </div>
-            </article>
         <div class="btn-more text-right">
             <a class="btn btn-default btn-xs" href="/archives.html">
                 查看所有文章 ...
@@ -297,7 +297,7 @@
                 Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
                 &middot;
                 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-                &copy; 2017 goreliu
+                &copy; 2018 goreliu
             </small></p>
         </div>
     </div>
